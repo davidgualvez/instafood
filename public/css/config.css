@@ -1,0 +1,67 @@
+
+html.ios {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+html.ios,
+html.ios body {
+  height: initial !important;
+}
+
+@media only screen and (max-width: 767px ){
+	#desktop-nav{
+		display: none;
+	}
+
+	#footer-c3,#footer-c2,#footer-c1{
+		text-align: center!important;
+		color:red;
+	}
+}
+
+@media only screen and (min-width: 768px ){
+	#mobile-nav{
+		display: none;
+	}
+
+	/*#footer-c3{
+		text-align: right!important;
+		color:red;
+	}*/
+}
+
+/*#main{
+	margin-top: 20px;
+}*/
+
+/*Basic Layout*/
+.box{
+	border: 1px solid gray;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.text-right{
+	text-align: right;
+}
+.text-left{
+	text-align: left;
+}
+
+.g-padding{
+	padding:5px;
+}
+
+#footer-c2{
+	color: #696969;
+	font-weight: 700;
+	
+}
+.footer-link{
+	color: #696969;
+}
+.footer-link:hover{
+	color: #470a67;
+}
