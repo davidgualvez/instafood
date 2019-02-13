@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Model\User;
 use App\Services\UserServices;
+use App\Services\Helper;
 
 use DB;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -18,9 +20,10 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
-        try {
-
+        try { 
             DB::beginTransaction();
+
+            $now = Carbon::now();
 
             $user = User::where('username', $request->username)
                 ->first();
@@ -43,8 +46,19 @@ class LoginController extends Controller
                 ]);
             }
 
-            $userServices = new UserServices($user); 
+            $helper = new Helper;  
+
+            $userServices = new UserServices($user);  
+            if( !$userServices->isOnDuty($helper->getClarionDate($now)) ){
+                return response()->json([
+                    'success'   => false,
+                    'status'    => 400,
+                    'message'   => 'Not on duty!'
+                ]);
+            }
+
             $token = $userServices->generateToken(); 
+
             /**
              * Committing all changes in the database
              */

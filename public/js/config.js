@@ -2,29 +2,31 @@ $(document).ready(function(){
 
     //
     $('.ui.dropdown').dropdown();
-    $('#mBtnMenu').on('click',function(){
-        $('#mMenu').sidebar('toggle');
-    });
+
+    // $('#mBtnMenu').on('click',function(){
+    //     $('#mMenu').sidebar('toggle');
+    // });
 
     $('.login').on('click',function(){
         redirectTo('/login');
-    });
-    $('.register').on('click',function(){
-        redirectTo('/signup');
-    });
-
+    });  
 
     // $('.main.menu').visibility({
     //     type: 'fixed'
     //   });
     
     btnLogin();  
+    btnLogout();
+    console.log('test...');
 }); 
 
 //global variable for all page  
 var api = '';
 var routes = {
     login:              '/login',
+    product: {
+        list :          '/products',
+    }
 };
 
 //
@@ -59,6 +61,7 @@ function postWithHeader(url, request, callback) {
         dataType: "json",
         data: request,
         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             token: token
         },
         success: function (data) {
@@ -201,6 +204,13 @@ function btnLogin(){
     });
 }
 
+function btnLogout() {
+    $('.btn-signout').on('click', function () {
+        console.log('btn-signout clicked...');
+        logout();
+    });
+}
+
 
 //global app functionalities
 function updateCartCount(){ 
@@ -263,4 +273,8 @@ function getBase64Image(img) {
     var dataURL = canvas.toDataURL("image/png");
 
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+function updateClock() {
+    $('#clock').html(moment().format('D. MMMM h:mm:ss A'));
 }

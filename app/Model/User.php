@@ -29,4 +29,11 @@ class User extends Model
         'password' => 'trim'
     ];
 
+    /**
+     * RELATIONSHIT
+     */
+    public function duties(){
+      return $this->hasMany('App\Model\OnDuty', 'CCENUMBER', 'username');
+    }
+
 }

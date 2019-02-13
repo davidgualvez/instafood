@@ -17,3 +17,5 @@ Route::get('/', function () {
 
 Route::get('/login',    'LoginController@show');
 Route::post('/login',   'LoginController@login');
+
+Route::post('/products', 'PartLocationController@lists');
