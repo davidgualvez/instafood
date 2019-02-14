@@ -16,8 +16,7 @@ $(document).ready(function(){
     //   });
     
     btnLogin();  
-    btnLogout();
-    console.log('test...');
+    btnLogout(); 
 }); 
 
 //global variable for all page  
@@ -26,6 +25,7 @@ var routes = {
     login:              '/login',
     product: {
         list :          '/products',
+        groups :        '/products/group'
     }
 };
 
@@ -81,7 +81,9 @@ function get(url, request, callback) {
         type: "GET",
         dataType: "json",
         data: request,
-        // header : getHeader(),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function (data) {
             callback(data);
         },

@@ -68,7 +68,8 @@ class LoginController extends Controller
                 'success'   => true,
                 'status'    => 200,
                 'message'   => 'Access Granted',
-                'token'     => $token
+                'token'     => $token,
+                'name'      => $user->name
             ]);
 
         }catch(\Exception $e){ 

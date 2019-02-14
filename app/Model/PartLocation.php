@@ -22,9 +22,9 @@ class PartLocation extends Model
     protected $maps = [
         'product_id'    => 'PRODUCT_ID',
         'outlet_id'     => 'OUTLETID',
-        'description'   => 'DSECRIPTION',
-        'group'         => 'GROUP',
-        'category'      => 'CATEGORY',
+        'description'   => 'DESCRIPTION',
+        'group_id'         => 'GROUP',
+        'category_id'      => 'CATEGORY',
         'short_code'    => 'SHORTCODE',
         'retail'        => 'RETAIL',
         'postmix'       => 'POSTMIX',
@@ -36,8 +36,16 @@ class PartLocation extends Model
 
     protected $getterMutators = [
         'description'   => 'trim',
-        'group'         => 'trim',
+        'group_id'         => 'trim',
         'category'      => 'trim',
         'short_code'    => 'trim',
     ];
+
+    /**
+     * RELATIONSHIT
+     */
+    public function group(){
+        return $this->belongsTo('App\Model\Group', 'group_id');
+    }
+
 }

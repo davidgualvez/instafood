@@ -35,13 +35,16 @@
             <i class="bars icon"></i>
         </a>  
         <div class="item">
-            Welcome! &nbsp;<strong>Jose Rizal.</strong>
+            Welcome! &nbsp;<strong id="employee_name"></strong>
         </div>
         <div class="item">
             <strong>HOME </strong>
         </div>
 
         <div class="right menu">
+            <a href="" class="item">
+                <i class="sync green icon"></i> 
+            </a> 
             <div class="item" id="clock"> 
             </div>
             <div class="item"> 
@@ -72,11 +75,11 @@
     <!-- CONTENT -->
     <div class="ui stackable grid container-fluid" style="margin:5px;"> 
         
-        <div class="twelve wide column"> 
+        <div class="twelve wide column">  
             <br>
             {{-- ======= --}}
             <div class="ui secondary menu"> 
-                <div class="ui multiple dropdown" tabindex="0">
+                <div class="ui multiple dropdown group" tabindex="0">
                 <input type="hidden" name="filters">
                 <i class="filter icon"></i>
                 <span class="text step1">Select Categories</span>
@@ -104,9 +107,12 @@
                 </div>
             </div> 
             {{-- ======= ITEMS --}}
-            <div class="ui five doubling cards step3" id="items_product"> `
-
-                <div class="card">
+            {{-- <div class="ui loading segment"> --}}
+                {{-- <div class="ui active inverted dimmer">
+                    <div class="ui text loader">Loading Products</div>
+                </div> --}}
+            <div class="ui five doubling cards step3" id="products_container"> 
+                {{-- <div class="card">
                     <div class="image"> 
                         <img class="product_image add-to-cart" src="https://chap.website/wp-content/uploads/2017/01/pexels-photo-300x300.jpg">
                     </div>
@@ -132,36 +138,10 @@
                             <i class="add icon"></i>
                                 Add to Cart
                         </div>
-                </div>  
-                <div class="card">
-                    <div class="image"> 
-                        <img class="product_image add-to-cart" src="https://chap.website/wp-content/uploads/2017/01/pexels-photo-300x300.jpg">
-                    </div>
-                        <div class="content">
-                            <div class="header">TEST</div>
-                            <div class="meta">
-                            </div>
-                            <div class="description">TEST</div>
-                        </div>
-                        <div class="extra content"> 
-
-                            <div class="ui small header">   
-                                <span class=" ">
-                                    <span class=" ">
-                                        Php
-                                    </span>
-                                    15.00
-                                </span>
-                            </div>
-                            
-                        </div>
-                        <div class="ui violet bottom attached button add-to-cart">
-                            <i class="add icon"></i>
-                                Add to Cart
-                        </div>
-                </div> 
-
+                </div>   
+                 --}}
             </div>
+            {{-- </div> --}}
             {{-- ==== ITEMS --}} 
         </div>
 
@@ -384,8 +364,23 @@
                          </div>
                     </div>
                 </div> 
-
-                <div class="ui buttons right floated right">
+{{-- ==== --}}
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon"></i>
+        INSTRUCTIONS(Optional)
+    </div>
+    <div class="content" style="padding-bottom:10px;">
+        <div class="ui form"> 
+            <div class="field"> 
+                <textarea rows="2" placeholder="e.g. no onions, no mayo &#10;Write comments in case you are allergic to ingredients or want to exclude some."></textarea>
+            </div>
+        </div>
+    </div> 
+</div>
+<br>
+{{-- ==== --}}
+                <div class="ui buttons fluid">
                     <button class="ui button">Prepaid</button>
                     <div class="or"></div>
                     <button class="ui positive button">Postpaid</button>
@@ -409,8 +404,8 @@
             <div class="item">
                 <i class="large github middle aligned icon"></i>
                 <div class="content">
-                    <a class="header">Product name</a>
-                    <div class="description">PHP 0.00</div>
+                    <a id="add-to-cart-modal-pname" class="header"></a>
+                    <div id="add-to-cart-modal-pprice" class="description"></div>
                 </div>
             </div>
         </div>
@@ -453,19 +448,7 @@
                     </div>
                 </div>
                 </div> 
-
-                <div class="title">
-                    <i class="dropdown icon"></i>
-                    SPECIAL INSTRUCTIONS
-                </div>
-                <div class="content" style="padding:10px;">
-                    <div class="ui form"> 
-                        <div class="field"> 
-                            <textarea rows="2" placeholder="e.g. no onions, no mayo &#10;Write comments in case you are allergic to ingredients or want to exclude some."></textarea>
-                        </div>
-                    </div>
-                </div> 
-                </div>
+            </div>
 {{-- ==== --}}
     </div>
   </div>

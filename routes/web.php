@@ -19,3 +19,4 @@ Route::get('/login',    'LoginController@show');
 Route::post('/login',   'LoginController@login');
 
 Route::post('/products', 'PartLocationController@lists');
+Route::post('/products/group', 'PartLocationController@groups');

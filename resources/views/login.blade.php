@@ -40,7 +40,7 @@
             </div>
         </h2>
         
-        <div class="ui segment">
+        {{-- <div class="ui segment">
                 <div style=" display:block; text-align:left;">
                     <div class="ui small breadcrumb">
                         <a href="/" class="section step3">
@@ -51,7 +51,7 @@
                         <div class="active section">Employee Login</div>
                     </div>
                 </div> 
-        </div>
+        </div> --}}
 
         <div class="ui large form">
             <div class="ui stacked segment">  

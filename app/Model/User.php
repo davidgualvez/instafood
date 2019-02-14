@@ -22,11 +22,13 @@ class User extends Model
     protected $maps = [  
       'username'        => 'NUMBER', 
       'password'        => 'PW',
-      'token'           => 'TOKEN'
+      'token'           => 'TOKEN',
+      'name'            => 'NAME'
     ];
 
     protected $getterMutators = [
-        'password' => 'trim'
+        'password'  => 'trim',
+        'name'      => 'trim'
     ];
 
     /**
