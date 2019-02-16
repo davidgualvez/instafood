@@ -112,7 +112,6 @@ class PartLocationController extends Controller
 
         $outlet = $userServices->isOnDuty($helper->getClarionDate($now));
 
-
         /**
          * GET PRODUCT BELONGS TO OUTLET
          */
@@ -120,7 +119,6 @@ class PartLocationController extends Controller
                 ->where('outlet_id', $outlet->outlet)->get();
         
         $groups = $pl->unique('group')->transform(function ($value) {
-            
             return [
                 'group_id'      => $value->group_id,
                 'description'   => $value->group->description

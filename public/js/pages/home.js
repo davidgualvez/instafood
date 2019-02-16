@@ -205,15 +205,30 @@ function btnSideMenu(){
 function btnAddToCart(){
     $('.add-to-cart').on('click', function(){
         console.log('test click...');
-        $('.ui.dimmer.add-to-cart-modal').dimmer('toggle'); 
+        $('.ui.longer.modal.add-to-cart-modal').modal({
+                transition: 'horizontal flip',
+                inverted: true,
+                closable : false, 
+                onHide: function(){
+                    console.log('hidden');
 
+                },
+                onShow: function(){
+                    console.log('shown');
+                },
+                onApprove: function() {
+                    console.log('Approve');
+                    return validateModal()
+                }
+            }).modal('show');
+        //$('.ui.dimmer.add-to-cart-modal').dimmer('toggle'); 
 
         //qty set to 1
         $('#add-to-cart-modal-txt-qty').val(1);
         //name
         $('#add-to-cart-modal-pname').text($(this).data('description'));
         //price
-        $('#add-to-cart-modal-pprice').text('PHP '+$(this).data('srp'));
+        $('#add-to-cart-modal-pprice').text('₱ '+$(this).data('srp'));
 
     });
 }

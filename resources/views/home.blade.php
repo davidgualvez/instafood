@@ -25,6 +25,9 @@
         .add-to-cart-modal-panel{
             text-align: left;
         }
+
+        
+
 	</style>
 </head>
 <body>  
@@ -392,85 +395,7 @@
     <!-- END CONTENT -->  
 
     {{-- ADD TO CART MODAL --}}
-    <div class="ui dimmer add-to-cart-modal">
-        <div class="content"> 
-
-<div class="ui card add-to-cart-modal-panel"  style="color:black; width:650px;">
-  <div class="content"> 
-    <a id="add-to-cart-modal-close"><i class="right floated close large icon "></i></a> 
-    <div class="header">
-        {{-- Cute Dog --}}
-        <div class="ui relaxed divided list"> 
-            <div class="item">
-                <i class="large github middle aligned icon"></i>
-                <div class="content">
-                    <a id="add-to-cart-modal-pname" class="header"></a>
-                    <div id="add-to-cart-modal-pprice" class="description"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="description">
-{{-- ==== --}}
-<div class="ui accordion">
-                <div class="title">
-                <i class="dropdown icon"></i>
-                MODIFY ITEM
-                </div>
-                <div class="content"  style="padding:10px;">
-                <div class="ui form"> 
-                    <div class="grouped fields">
-                        <label for="fruit">Select your second favorite fruit:</label>
-                        <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
-                            <label>Apples</label>
-                        </div>
-                        </div>
-                        <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                            <label>Oranges</label>
-                        </div>
-                        </div>
-                        <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                            <label>Pears</label>
-                        </div>
-                        </div>
-                        <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="fruit" tabindex="0" class="hidden">
-                            <label>Grapefruit</label>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                </div> 
-            </div>
-{{-- ==== --}}
-    </div>
-  </div>
-  <div class="extra content">
-    <div class="ui right labeled action input">
-        <label for="amount" class="ui label">Qty</label>
-        <input  id="add-to-cart-modal-txt-qty" disabled patter="[0-9]*" inputmode="numeric" step="1" min="0" value="1" type="text"> 
-        <button id="add-to-cart-modal-btn-minus-qty" class="ui icon button">
-            <i class="minus icon"></i>
-        </button>
-        <button id="add-to-cart-modal-btn-plus-qty" class="ui icon button">
-            <i class="plus icon"></i>
-        </button>
-    </div> 
-    <button id="add-to-cart-modal-btn" class="ui button right floated right positive">
-        ADD TO CART
-    </button> 
-  </div>
-</div>
-
-        </div>
-    </div>
+    @include('components.modal-add-to-cart') 
     {{-- END OF ADD TO CART MODAL --}}
 
 	<!-- JS -->
