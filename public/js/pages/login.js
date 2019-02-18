@@ -53,6 +53,8 @@ function login(username, password){
 
         setStorage('token', response.token);
         setStorage('name', response.name);
+        setStorage('outlet_id', response.data.outlet.id);
+        setStorage('outlet_name', response.data.outlet.name);
         
         showSuccess('', 'Login Success', function () {
             redirectTo('/');

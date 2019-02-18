@@ -8,7 +8,7 @@ use App\Services\UserServices;
 use App\Services\Helper;
 use App\Model\User;
 use App\Model\PartLocation;
-
+use App\Model\Postmix;
 use Carbon\Carbon;
 
 class PartLocationController extends Controller
@@ -47,18 +47,8 @@ class PartLocationController extends Controller
         $search     = $request->search;
         $categories = $request->categories; 
         $limit      = 10; 
-        
-        // dd(
-        //     $search,
-        //     $categories
-        // );
-
-        if( $categories[0] == null || $categories[0] == ''){
-            // dd(
-            //     '1',
-            //     $search,
-            //     $categories
-            // );
+          
+        if( $categories[0] == null || $categories[0] == ''){ 
             $pl = PartLocation::where('outlet_id', $duty->outlet)
                 ->where('description', 'LIKE', '%' . $search . '%') 
                 ->orderBy('product_id', 'desc')
@@ -79,8 +69,13 @@ class PartLocationController extends Controller
                 'description'   => $value->description,
                 'srp'           => $value->retail,
                 'category_id'   => $value->category,
-                'group_id'      => $value->group, 
+                'group'         => [
+                    'group_code'    => $value->group->group_id,
+                    'description'   => $value->group->description
+                ],  
                 'image'         => '', 
+                'is_food'       => $value->is_food,
+                'is_postmix'    => $value->postmix
             ];
         });
 
@@ -134,4 +129,20 @@ class PartLocationController extends Controller
             'data'      => $groups
         ]); 
     }
+
+    public function getComponents(Request $request, $pid){ 
+        $pl = PartLocation::where('outlet_id', $request->outlet_id) 
+                ->where('product_id',$pid)
+                ->first();
+
+        return response()->json([
+            'success'   => true,
+            'status'    => 200,
+            'pid'      => $pid,
+            'outlet'    => $request->outlet_id,
+            'pl'        => $pl,
+            'pl-comp'        => $pl->postmixComponents
+        ]); 
+
+    } 
 }

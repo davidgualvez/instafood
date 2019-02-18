@@ -23,7 +23,7 @@ class Outlet extends Model
     protected $maps = [
         'outlet_id'     => 'OUTLETID',
         'code'          => 'OUTLETCODE',
-        'description'   => 'DSECRIPTION',
+        'description'   => 'DESCRIPTION',
         'zone_id'       => 'ZONEID'
     ];
 

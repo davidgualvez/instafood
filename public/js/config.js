@@ -17,6 +17,12 @@ $(document).ready(function(){
     
     btnLogin();  
     btnLogout(); 
+
+
+    if( getStorage('token') != null || getStorage('token') != '' ){
+        console.log(showStoreOutletName());
+        $('#outlet-name').text( showStoreOutletName() );
+    }
 }); 
 
 //global variable for all page  
@@ -25,7 +31,7 @@ var routes = {
     login:              '/login',
     product: {
         list :          '/products',
-        groups :        '/products/group'
+        groups :        '/products/group',
     }
 };
 
@@ -215,25 +221,10 @@ function btnLogout() {
 
 
 //global app functionalities
-function updateCartCount(){ 
-    console.log('updating cart count....');
-    var data = {
-    };
-    post(routes.cart.count, data, function(response){
-        console.log(response);
-        if(response.success == false){
-            if(response.status == 401){ 
-                redirectTo('/login'); //if not authenticated
-            } 
-            showWarning('Warning',response.message, function(){
-
-            });
-            return;
-        }
-
-        $('.cart_count').text(response.count);
-    });
-    
+function updateCartCount(){  
+}
+function showStoreOutletName(){
+    return getStorage('outlet_name');
 }
 
 function text_truncate(str, length, ending) {
@@ -279,4 +270,10 @@ function getBase64Image(img) {
 
 function updateClock() {
     $('#clock').html(moment().format('D. MMMM h:mm:ss A'));
+}
+
+function numberWithCommas(number) {
+    var parts = number.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
 }

@@ -41,7 +41,7 @@
             Welcome! &nbsp;<strong id="employee_name"></strong>
         </div>
         <div class="item">
-            <strong>HOME </strong>
+            <strong id="outlet-name"></strong>
         </div>
 
         <div class="right menu">
@@ -109,13 +109,20 @@
                     </div>
                 </div>
             </div> 
-            {{-- ======= ITEMS --}}
-            {{-- <div class="ui loading segment"> --}}
-                {{-- <div class="ui active inverted dimmer">
-                    <div class="ui text loader">Loading Products</div>
-                </div> --}}
-            <div class="ui five doubling cards step3" id="products_container"> 
-                {{-- <div class="card">
+            {{-- ======= ITEMS --}} 
+            
+            
+            <div class="ui segment">
+                <div class="ui middle aligned divided selection list" id="products_container"> 
+                 
+                </div>
+            </div>
+            
+
+            
+
+           {{--  <div class="ui five doubling cards step3" > 
+                <div class="card">
                     <div class="image"> 
                         <img class="product_image add-to-cart" src="https://chap.website/wp-content/uploads/2017/01/pexels-photo-300x300.jpg">
                     </div>
@@ -142,8 +149,8 @@
                                 Add to Cart
                         </div>
                 </div>   
-                 --}}
-            </div>
+                
+            </div> --}}
             {{-- </div> --}}
             {{-- ==== ITEMS --}} 
         </div>
@@ -368,7 +375,7 @@
                     </div>
                 </div> 
 {{-- ==== --}}
-<div class="ui accordion">
+{{-- <div class="ui accordion">
     <div class="title">
         <i class="dropdown icon"></i>
         INSTRUCTIONS(Optional)
@@ -381,7 +388,7 @@
         </div>
     </div> 
 </div>
-<br>
+<br> --}}
 {{-- ==== --}}
                 <div class="ui buttons fluid">
                     <button class="ui button">Prepaid</button>

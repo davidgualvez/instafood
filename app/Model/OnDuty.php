@@ -31,5 +31,10 @@ class OnDuty extends Model
         // 'password' => 'trim'
     ];
 
-
+    /*
+     * RELATIONSHIT
+     */
+    public function storeOutlet(){
+        return $this->belongsTo('App\Model\Outlet','outlet');
+    }
 }

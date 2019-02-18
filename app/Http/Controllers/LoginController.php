@@ -48,8 +48,10 @@ class LoginController extends Controller
 
             $helper = new Helper;  
 
-            $userServices = new UserServices($user);  
-            if( !$userServices->isOnDuty($helper->getClarionDate($now)) ){
+            $userServices = new UserServices($user);
+
+            $onDuty = $userServices->isOnDuty($helper->getClarionDate($now));
+            if( !$onDuty ){
                 return response()->json([
                     'success'   => false,
                     'status'    => 400,
@@ -69,7 +71,13 @@ class LoginController extends Controller
                 'status'    => 200,
                 'message'   => 'Access Granted',
                 'token'     => $token,
-                'name'      => $user->name
+                'name'      => $user->name,
+                'data'      => [
+                    'outlet'    => [
+                        'id'        => $onDuty->storeOutlet->outlet_id,
+                        'name'      => $onDuty->storeOutlet->description
+                    ]
+                ]   
             ]);
 
         }catch(\Exception $e){ 
@@ -77,7 +85,8 @@ class LoginController extends Controller
             return response()->json([
                 'success'   => false,
                 'status'    => 400,
-                'message'   => 'Invalid Request'
+                'message'   => 'Invalid Request',
+                'error'     => $e->getMessage()
             ]);
         }
        

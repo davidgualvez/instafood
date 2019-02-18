@@ -36,7 +36,7 @@ class PartLocation extends Model
 
     protected $getterMutators = [
         'description'   => 'trim',
-        'group_id'         => 'trim',
+        'group_id'      => 'trim',
         'category'      => 'trim',
         'short_code'    => 'trim',
     ];
@@ -47,5 +47,8 @@ class PartLocation extends Model
     public function group(){
         return $this->belongsTo('App\Model\Group', 'group_id');
     }
-
+    
+    public function postmixComponents(){
+        return $this->hasMany('App\Model\Postmix','PRODUCT_ID','PRODUCT_ID');
+    }
 }
