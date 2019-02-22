@@ -52,7 +52,9 @@
           </div> 
         </div>
       </div> 
-      <div class="ui fluid accordion">
+      
+      <div class="ui fluid accordion add-to-cart-modifiables">
+
           <div class="title " style="width: 100%;">
               <i class="dropdown icon"></i>
               Click to change
@@ -69,8 +71,7 @@
                   <div class="ui  red button">
                     <i class="plus icon"></i>
                   </div>
-                </div>
-                {{-- <img class="ui avatar image" src="/images/avatar2/small/lena.png"> --}}
+                </div> 
                 <div class="content">
                   Sprite ( ₱ 0.00 )
                 </div>
@@ -84,8 +85,7 @@
                   <div class="ui  red button">
                     <i class="plus icon"></i>
                   </div>
-                </div>
-                {{-- <img class="ui avatar image" src="/images/avatar2/small/lena.png"> --}}
+                </div> 
                 <div class="content">
                   Sprite ( ₱ 0.00 )
                 </div>
@@ -99,14 +99,14 @@
                   <div class="ui  red button">
                     <i class="plus icon"></i>
                   </div>
-                </div>
-                {{-- <img class="ui avatar image" src="/images/avatar2/small/lena.png"> --}}
+                </div> 
                 <div class="content">
                   Sprite ( ₱ 0.00 )
                 </div>
               </div>  
             </div>
-          </div> 
+          </div>  
+
       </div>
       {{-- ===== --}}
       <div class="ui accordion">

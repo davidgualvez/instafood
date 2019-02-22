@@ -7,8 +7,7 @@ $(document).ready(function(){
         redirectTo('/login');
         return;
     } 
-
-    btnSideMenu(); 
+ 
     $('.ui.accordion').accordion();
     $('.ui.radio.checkbox').checkbox();
     
@@ -166,15 +165,82 @@ function getCategories() {
 }
 
 function getComponents(outlet_id = null,product_id = null){
+
     var data = {
         outlet_id : outlet_id
-    }
+    } 
     postWithHeader(
         '/product/'+product_id+'/components',
         data, 
         function(response){
 
-        console.log(response);
+        var result = response.data;
+
+        var mlist = $('.add-to-cart-modifiables'); // modifiable list
+        mlist.empty();
+
+        if( result.length > 0){
+ 
+            $.each(result, function(k,v){
+                if(v.modifiable == 1 || v.modifiable == '1'){
+                    //console.log(v);
+
+                    // add to components in select_product object
+                    var item    = {
+                        item: v,
+                        qty: selected_product.ordered_qty,
+                        selectable_items: []
+                    }; 
+
+                    // create modify content for each item
+                    var qty     = selected_product.ordered_qty * v.quantity;
+                    mlist.append(
+                        '<div class="title " style="width: 100%;">'+
+                            '<i class="dropdown icon"></i>'+
+                            'Click to change'+
+                            '<label style="float: right;">'+v.description+' ( '+qty+' )</label>'+
+                        '</div>' + 
+
+                        '<div class="content box"   style="padding:10px;">'+
+                            '<div class="ui middle aligned divided list  add-to-cart-selectables" id="m-item-'+v.product_id+'">'+
+                            '</div>'+
+                        '</div>'
+                    );
+
+
+                    get('/products/group/'+v.product_category, {
+                        outlet_id: getStorage('outlet_id')
+                    }, function(response){
+
+                        var selectable_container = $(".add-to-cart-selectables#m-item-"+v.product_id);
+                        selectable_container.empty();
+
+                        $.each(response.data, function(kk,vv){
+                            item.selectable_items.push(vv);
+                            selectable_container.append(
+                                '<div class="item">'+
+                                  '<div class="right floated content"> '+
+                                    '<strong>(0)</strong> &nbsp;'+
+                                    '<div class="ui  green button">'+
+                                      '<i class="minus icon"></i>'+
+                                    '</div>'+
+                                    '<div class="ui red button">'+
+                                      '<i class="plus icon"></i>'+
+                                    '</div>'+
+                                  '</div> '+
+                                  '<div class="content">'+
+                                    vv.description + ' ( ₱ '+ vv.srp +' )'+
+                                  '</div>'+
+                                '</div>'
+                            );
+                        });
+
+                    });
+                    // display selectables
+                    selected_product.components.push(item); 
+                } 
+            });
+        }
 
     });
 }
@@ -192,11 +258,7 @@ $('#search_our_products').on('change', function () {
     console.log('change...');
 }); 
 
-function btnSideMenu(){
-    $('#sidebar-menu').on('click', function(){
-        $('.ui.sidebar').sidebar('toggle');
-    });
-}
+
 
 function btnAddToCart(){
     $('.product').on('click', function(){
@@ -221,23 +283,22 @@ function btnAddToCart(){
         .addClass('active') 
 
         addToCartModal.modal({
-                transition: 'horizontal flip',
-                inverted: true,
-                closable : true, 
-                onHide: function(){
-                    console.log('hidden'); 
-                },
-                onShow: function(){
-                    console.log('shown');
-                },
-                onApprove: function() {
-                    console.log('Approve');
-                    // return validateModal()
-                }
-            }).modal('show'); 
+            transition: 'horizontal flip',
+            inverted: true,
+            closable : true, 
+            onHide: function(){
+                console.log('hidden'); 
+            },
+            onShow: function(){
+                console.log('shown');
+            },
+            onApprove: function() {
+                console.log('Approve');
+                // return validateModal()
+            }
+        }).modal('show'); 
 
         // get components if has
-        console.log('product_id: ' + item.product_id);
         getComponents(getStorage('outlet_id'),item.product_id);
 
         //qty set to 1

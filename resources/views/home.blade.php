@@ -65,16 +65,9 @@
     {{-- END NAVIGATION --}}
 
     {{-- SIDEBAR --}}
-    <div class="ui sidebar  vertical menu"> 
-    	<a class="active item">
-            Enchanted Kingdom
-        </a>  
-         <a class="item">
-            <i class=" icon"></i>
-            Order History
-        </a>  
-    </div>
+    @include('layouts.sidebar-nav')
     {{-- END OF SIDEBAR --}}
+
     <!-- CONTENT -->
     <div class="ui stackable grid container-fluid" style="margin:5px;"> 
         
@@ -89,12 +82,12 @@
                 <div class="menu transition hidden" tabindex="-1">
                     <div class="ui icon search input">
                     <i class="search icon"></i>
-                    <input type="text" placeholder="Search tags...">
+                        <input type="text" placeholder="Search tags...">
                     </div>
                     <div class="divider"></div>
                     <div class="header">
-                    <i class="tags icon"></i>
-                    Tag Label
+                        <i class="tags icon"></i>
+                        Tag Label
                     </div>
                     <div class="scrolling menu" id="categories"><div class="categories item" data-value="10211">ALA CARTE</div><div class="categories item" data-value="10101">APPAREL</div><div class="categories item" data-value="10302">BUNDLED TICKETS</div><div class="categories item" data-value="10203">CONDIMENTS</div><div class="categories item" data-value="10201">FFS  SNCKCMBO</div><div class="categories item" data-value="10206">FFS BEVERAGE</div><div class="categories item" data-value="10202">FFS FG</div><div class="categories item" data-value="10208">FOOD</div><div class="categories item" data-value="10205">FOOD PACKAGING</div><div class="categories item" data-value="10402">LOAD WALLET</div><div class="categories item" data-value="10207">MEALGROUP</div><div class="categories item" data-value="10102">OTHER</div><div class="categories item" data-value="10209">OTHER</div><div class="categories item" data-value="10104">PEN</div><div class="categories item" data-value="10401">PREPAID CARD</div><div class="categories item" data-value="10303">PROMO TICKETS</div><div class="categories item" data-value="10212">RAW MATERIALS</div><div class="categories item" data-value="10204">RECIPE</div><div class="categories item" data-value="10301">REGULAR TICKETS</div><div class="categories item" data-value="10210">SPICES</div><div class="categories item" data-value="10103">TUMBLER</div></div>
                 </div>
@@ -170,179 +163,9 @@
                         {{-- ITEM --}}
                         <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
                         <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
+                            <a class="header">TEST LAYOUT</a>
                             <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="item">
-                        {{-- Remove Button --}}
-                        <div class="right floated content">
-                            <a href="" class="">
-                                <i class="large red remove link icon"></i>
-                            </a>
-                        </div> 
-                        {{-- ITEM --}}
-                        <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
-                        <div class="content">
-                            <a class="header">YANGCHOW RICE</a>
-                            <div class="description">
-                                1 × PHP 25.00 
+                                1 × PHP 0.00 
                             </div>
                         </div>
 
@@ -355,7 +178,7 @@
                         <div class="right floated content">
                             <span class="amount right floated content">
                                 <span class="">PHP</span>
-                                <strong>102.00</strong>
+                                <strong>0.00</strong>
                             </span>
                         </div>
                          <div class="left floated content">
@@ -366,7 +189,7 @@
                         <div class="right floated content">
                             <span class="amount right floated content">
                                 <span class="">PHP</span>
-                                <strong>102.00</strong>
+                                <strong>0.00</strong>
                             </span>
                         </div>
                          <div class="left floated content">
@@ -402,8 +225,13 @@
     <!-- END CONTENT -->  
 
     {{-- ADD TO CART MODAL --}}
-    @include('components.modal-add-to-cart') 
+    @include('components.modal-add-to-cart')
     {{-- END OF ADD TO CART MODAL --}}
+
+    {{-- CUSTOMER REGISTRATION MODAL --}}
+    @include('components.modal-customer-registration')
+    {{-- END OF CUSTOMER REGISTRATION MODAL --}}
+
 
 	<!-- JS -->
 	<script src="/js/app.js"></script>

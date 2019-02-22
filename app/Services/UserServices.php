@@ -29,6 +29,7 @@ class UserServices {
     public function getOutlet(){
         return $this->model->outlet;
     }
+    
     /**
      * SET
      */

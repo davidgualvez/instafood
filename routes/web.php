@@ -15,9 +15,12 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login',    'LoginController@show');
-Route::post('/login',   'LoginController@login');
+Route::post('/costumer', 					'CustomerController@store');
+
+Route::get('/login',    					'LoginController@show');
+Route::post('/login',   					'LoginController@login');
 
 Route::post('/products', 					'PartLocationController@lists');
 Route::post('/products/group', 				'PartLocationController@groups');
 Route::post('/product/{pid}/components',	'PartLocationController@getComponents');
+Route::get('/products/group/{id}', 			'PartLocationController@getByGroup');

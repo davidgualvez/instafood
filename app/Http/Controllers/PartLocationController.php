@@ -130,19 +130,69 @@ class PartLocationController extends Controller
         ]); 
     }
 
-    public function getComponents(Request $request, $pid){ 
+    public function getComponents(Request $request, $pid){
+
         $pl = PartLocation::where('outlet_id', $request->outlet_id) 
                 ->where('product_id',$pid)
                 ->first();
 
+        $result = $pl->postmixComponents;
+
+        if( !$result->isEmpty() ){
+
+            $result->transform( function($v) {
+                return [
+                    'parent_id'         => $v->parent_id,
+                    'product_id'        => $v->product_id,
+                    'description'       => $v->description,
+                    'quantity'          => $v->quantity,
+                    'unit_cost'         => $v->unit_cost,
+                    'type'              => $v->type, 
+                    'modifiable'        => $v->modifiable,
+                    'product_category'  => $v->comp_cat_id
+                ];
+            }); 
+        }
+
         return response()->json([
-            'success'   => true,
-            'status'    => 200,
-            'pid'      => $pid,
-            'outlet'    => $request->outlet_id,
-            'pl'        => $pl,
-            'pl-comp'        => $pl->postmixComponents
+            'success'       => true,
+            'status'        => 200,
+            'data'          => $result
         ]); 
 
     } 
+
+    public function getByGroup(Request $request, $id){
+
+        // parts by location and group
+        $list = PartLocation::where('outlet_id', $request->outlet_id)
+                    ->where('group_id', $id)
+                    ->get();
+
+        $list->transform(function ($value) { 
+            //$url = Storage::url($value->IMAGE);
+            return [
+                'product_id'    => $value->product_id,
+                'outlet_id'     => $value->outlet_id, 
+                'description'   => $value->description,
+                'srp'           => $value->retail,
+                'category_id'   => $value->category,
+                'group'         => [
+                    'group_code'    => $value->group->group_id,
+                    'description'   => $value->group->description
+                ],  
+                'image'         => '', 
+                'is_food'       => $value->is_food,
+                'is_postmix'    => $value->postmix
+            ];
+        });
+
+
+        return response()->json([
+            'success'       => true,
+            'status'        => 200,
+            'data'          => $list
+        ]); 
+    }
+
 }

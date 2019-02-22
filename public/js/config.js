@@ -20,8 +20,33 @@ $(document).ready(function(){
 
 
     if( getStorage('token') != null || getStorage('token') != '' ){
-        console.log(showStoreOutletName());
+        console.log(showStoreOutletName()); 
         $('#outlet-name').text( showStoreOutletName() );
+
+        $('.menunav-customer-registration').on('click', function(){
+            console.log('customer registration btn...');
+            $('.ui.modal.transition.modal-customer-registration.longer').modal({
+                transition: 'horizontal flip',
+                inverted: true,
+                closable : true, 
+                centered: false,
+                onHide: function(){
+                    console.log('hidden'); 
+                    $('.ui.sidebar').sidebar('toggle');
+                },
+                onShow: function(){
+                    console.log('shown');
+                },
+                onApprove: function() {
+                    console.log('Approve');
+                    // return validateModal()
+                }
+            }).modal('show'); 
+        }); 
+
+        btnCustomerRegister();
+
+        btnSideMenu();
     }
 }); 
 
@@ -32,6 +57,9 @@ var routes = {
     product: {
         list :          '/products',
         groups :        '/products/group',
+    },
+    customer : {
+        create :        '/costumer'
     }
 };
 
@@ -276,4 +304,80 @@ function numberWithCommas(number) {
     var parts = number.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
+}
+
+function btnCustomerRegister(){
+    $('#modal-btn-customer-register').on('click', function(){
+        console.log('test click');
+        var name    = $('#modal-cr-name');
+        var bdate   = $('#modal-cr-bdate');
+        var mnumber = $('#modal-cr-mobile_number'); 
+
+        if( name.val().trim() == '' || name.val().trim() == null){
+            showWarning('','Name is required', function(){
+
+            });
+            return;
+        }
+
+        if( bdate.val().trim() == '' || bdate.val().trim() == null){
+            showWarning('','Birthdate is required', function(){
+
+            });
+            return;
+        }
+
+        if( bdate.val().trim() == '' || bdate.val().trim() == null){
+            showWarning('','Birthdate is required', function(){
+
+            });
+            return;
+        }
+
+        if( mnumber.val().trim() == '' || mnumber.val().trim() == null){
+            showWarning('','Mobile number is required', function(){
+
+            });
+            return;
+        }
+
+        var regEx = /^(9)\d{9}$/; // accept only PH Mobile number  
+        if( !mnumber.val().match(regEx) ){
+            showWarning('','Invalid Mobile Format', function(){
+
+            });
+            return;
+        }
+
+        // create new customer for loyalty etc
+        var data = {
+            name    : name.val(),
+            bdate   : bdate.val(),
+            mnumber : mnumber.val()
+        };
+
+        postWithHeader(routes.customer.create ,data, function(response){
+            if( response.success == false){
+                showWarning('', response.message, function(){
+
+                });
+                return;
+            }
+
+            showSuccess('', 'New Customer has been registered', function(){
+                
+            }); 
+            name.val('');
+            bdate.val('');
+            mnumber.val('');
+            $('.ui.modal.transition.modal-customer-registration.longer').modal('hide'); 
+            $('.ui.sidebar').sidebar('toggle');
+        }); 
+    });
+}
+
+function btnSideMenu(){
+    $('#sidebar-menu').on('click', function(){
+        $('.ui.sidebar').sidebar('toggle');
+    });
 }
