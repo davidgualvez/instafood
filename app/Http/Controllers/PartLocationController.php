@@ -140,13 +140,14 @@ class PartLocationController extends Controller
 
         if( !$result->isEmpty() ){
 
-            $result->transform( function($v) {
+            $result->transform( function($v) use ($pl) {
                 return [
                     'parent_id'         => $v->parent_id,
                     'product_id'        => $v->product_id,
                     'description'       => $v->description,
                     'quantity'          => $v->quantity,
                     'unit_cost'         => $v->unit_cost,
+                    'rp'                => $pl->retail,
                     'type'              => $v->type, 
                     'modifiable'        => $v->modifiable,
                     'product_category'  => $v->comp_cat_id

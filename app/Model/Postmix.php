@@ -30,7 +30,7 @@ class Postmix extends Model
         'partno'           	=> 'PARTNO',
         'yield'            	=> 'YIELD',
 
-    'modifiable'        => 'MODIFIABLE',
+        'modifiable'        => 'MODIFIABLE',
         'is_free'           => 'ISFREE',
         'comp_cat_id'       => 'COMPCATID'
     ];

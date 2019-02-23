@@ -194,6 +194,7 @@ function getComponents(outlet_id = null,product_id = null){
                             base_quantity   : parseInt(v.quantity),
                             product_category: v.product_category,
                             modifiable      : v.modifiable,
+                            rp              : parseFloat(v.rp),
                             quantity        : parseInt(v.quantity)
                         },
                         qty: selected_product.ordered_qty,
@@ -209,7 +210,7 @@ function getComponents(outlet_id = null,product_id = null){
                             '<label style="float: right;" id="pc-' +v.product_id+'">'+v.description+' ( '+qty+' )</label>'+
                         '</div>' + 
 
-                        '<div class="content box"   style="padding:10px;">'+
+                        '<div class="content"   style="padding:10px;">'+
                             '<div class="ui middle aligned divided list  add-to-cart-selectables" id="m-item-'+v.product_id+'">'+
                             '</div>'+
                         '</div>'
@@ -224,6 +225,10 @@ function getComponents(outlet_id = null,product_id = null){
                         selectable_container.empty();
 
                         $.each(response.data, function(kk,vv){
+                            var rp = 0;
+                            if ( parseFloat(vv.srp) > parseFloat(v.rp)  ){
+                                rp = parseFloat(vv.srp) - parseFloat(v.rp);
+                            }
                             item.selectable_items.push({
                                 category_id     : vv.category_id,
                                 description     : vv.description,  
@@ -231,27 +236,30 @@ function getComponents(outlet_id = null,product_id = null){
                                 is_postmix      : vv.is_postmix,
                                 outlet_id       : vv.outlet_id,
                                 product_id      : vv.product_id,
-                                price           : vv.srp,
+                                price           : rp,
                                 qty             : 0
                             });
 
                             selectable_container.append(
                                 '<div class="item">'+
                                   '<div class="right floated content"> '+
-                                    '<strong>(0)</strong> &nbsp;'+
-                                    '<div class="ui  green button">'+
+                                    '<strong id="atc-pc'+v.product_id+'-spc'+vv.product_id+'">(0)</strong> &nbsp;'+
+                                    '<div data-pc-id="'+v.product_id+'" data-spc-index="'+kk+'" class="btn-spc-minus ui  green button">'+
                                       '<i class="minus icon"></i>'+
                                     '</div>'+
-                                    '<div class="ui red button">'+
+                                    '<div data-pc-id="'+v.product_id+'" data-spc-index="'+kk+'" class="btn-spc-plus ui red button">'+
                                       '<i class="plus icon"></i>'+
                                     '</div>'+
-                                  '</div> '+
+                                  '</div>'+
                                   '<div class="content">'+
-                                    vv.description + ' ( ₱ '+ vv.srp +' )'+
+                                    vv.description + ' ( ₱ ' + numberWithCommas((rp).toFixed(2)) +' )'+
                                   '</div>'+
                                 '</div>'
                             );
                         });
+
+                        btnSpcMinus();
+                        btnSpcPlus();
 
                     });
                     // display selectables
@@ -389,10 +397,12 @@ $('#add-to-cart-modal-btn-minus-qty').on('click', function () {
 
     if (parseInt(txtQty.val()) > 1 ){
         var qty = parseInt(txtQty.val()) - 1;  
-        selectedItemCostComputation(qty);
+        selectedItemCostComputation(qty); 
 
-        //txtQty.val(qty);
-        //netTotal.text( numberWithCommas( (selected_product.net_amount).toFixed(2) ) );
+        $.each(selected_product.components, function(k,v){
+            console.log(k,v);
+            console.log(v.selectable_items);
+        });
     }
      
     atcmDisplayUpdate();
@@ -452,9 +462,13 @@ function atcmDisplayUpdate(){ // add to cart display update
 
     // parent components qty
     $.each(selected_product.components, function(k,v){
-        $('#pc-' + selected_product.components[k].item.product_id).text(
-            '' + selected_product.components[k].item.description + ' (' + selected_product.components[k].item.quantity + ')'
+        $('#pc-' + v.item.product_id).text(
+            '' + v.item.description + ' ( ' + selected_product.components[k].item.quantity + ' )'
         );
+
+        $.each(v.selectable_items, function(kk,vv){
+            $('#atc-pc'+v.item.product_id+'-spc'+vv.product_id).text('('+vv.qty+ ')');
+        });
     });
 
     // net total
@@ -462,4 +476,39 @@ function atcmDisplayUpdate(){ // add to cart display update
     net_total.text( numberWithCommas((selected_product.net_amount).toFixed(2)) );
 }
 
+function btnSpcMinus(){
+    $('.btn-spc-minus').on('click', function(){
+        var pc_id       = $(this).data('pc-id');
+        var spc_index   = $(this).data('spc-index'); 
+        $.each(selected_product.components, function(k,v){
+
+            if(v.item.product_id == pc_id){ 
+                if(v.selectable_items[spc_index].qty > 0){
+                    selected_product.components[k].item.quantity ++; 
+                    selected_product.components[k].selectable_items[spc_index].qty --; 
+                } 
+            } 
+            
+        });
+        atcmDisplayUpdate();
+    });
+}
+
+function btnSpcPlus(){
+    $('.btn-spc-plus').on('click', function(){
+        var pc_id       = $(this).data('pc-id');
+        var spc_index   = $(this).data('spc-index'); 
+        $.each(selected_product.components, function(k,v){
+
+            if(v.item.product_id == pc_id){
+                if(v.item.quantity > 0){
+                    selected_product.components[k].item.quantity --; 
+                    selected_product.components[k].selectable_items[spc_index].qty ++;
+                }
+            } 
+            
+        });
+        atcmDisplayUpdate();
+    });
+}
 
