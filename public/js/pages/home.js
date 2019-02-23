@@ -187,7 +187,15 @@ function getComponents(outlet_id = null,product_id = null){
 
                     // add to components in select_product object
                     var item    = {
-                        item: v,
+                        item: {
+                            parent_id       : v.parent_id,
+                            product_id      : v.product_id,
+                            description     : v.description,
+                            base_quantity   : parseInt(v.quantity),
+                            product_category: v.product_category,
+                            modifiable      : v.modifiable,
+                            quantity        : parseInt(v.quantity)
+                        },
                         qty: selected_product.ordered_qty,
                         selectable_items: []
                     }; 
@@ -198,7 +206,7 @@ function getComponents(outlet_id = null,product_id = null){
                         '<div class="title " style="width: 100%;">'+
                             '<i class="dropdown icon"></i>'+
                             'Click to change'+
-                            '<label style="float: right;">'+v.description+' ( '+qty+' )</label>'+
+                            '<label style="float: right;" id="pc-' +v.product_id+'">'+v.description+' ( '+qty+' )</label>'+
                         '</div>' + 
 
                         '<div class="content box"   style="padding:10px;">'+
@@ -216,7 +224,17 @@ function getComponents(outlet_id = null,product_id = null){
                         selectable_container.empty();
 
                         $.each(response.data, function(kk,vv){
-                            item.selectable_items.push(vv);
+                            item.selectable_items.push({
+                                category_id     : vv.category_id,
+                                description     : vv.description,  
+                                is_food         : vv.is_food,
+                                is_postmix      : vv.is_postmix,
+                                outlet_id       : vv.outlet_id,
+                                product_id      : vv.product_id,
+                                price           : vv.srp,
+                                qty             : 0
+                            });
+
                             selectable_container.append(
                                 '<div class="item">'+
                                   '<div class="right floated content"> '+
@@ -353,9 +371,16 @@ $('#add-to-cart-modal-btn-plus-qty').on('click', function(){
     var qty     = parseInt(txtQty.val()) + 1; 
     selectedItemCostComputation(qty);
 
-    txtQty.val(qty); 
-    netTotal.text( numberWithCommas( (selected_product.net_amount).toFixed(2) ) );
- 
+    //txtQty.val(qty); 
+    //netTotal.text( numberWithCommas( (selected_product.net_amount).toFixed(2) ) );
+    
+    // loop all the parent component 
+    $.each(selected_product.components, function(k,v){ 
+        selected_product.components[k].qty += 1; 
+        selected_product.components[k].item.quantity += selected_product.components[k].item.base_quantity * 1;  
+    });   
+
+    atcmDisplayUpdate();
 }); 
  
 $('#add-to-cart-modal-btn-minus-qty').on('click', function () {
@@ -366,10 +391,11 @@ $('#add-to-cart-modal-btn-minus-qty').on('click', function () {
         var qty = parseInt(txtQty.val()) - 1;  
         selectedItemCostComputation(qty);
 
-        txtQty.val(qty);
-        netTotal.text( numberWithCommas( (selected_product.net_amount).toFixed(2) ) );
+        //txtQty.val(qty);
+        //netTotal.text( numberWithCommas( (selected_product.net_amount).toFixed(2) ) );
     }
      
+    atcmDisplayUpdate();
 }); 
  
 $('#add-to-cart-modal-btn').on('click', function () { 
@@ -415,6 +441,25 @@ function selectedItemCostComputation(qty = 1, addedCost= 0){
     selected_product.sub_total      = selected_product.item.srp * selected_product.ordered_qty;
     selected_product.net_amount     = selected_product.sub_total + selected_product.additional_cost;
 
+}
+
+function atcmDisplayUpdate(){ // add to cart display update
+    console.log( selected_product );
+    
+    //parent qty
+    var parent_qty = $('#add-to-cart-modal-txt-qty');
+    parent_qty.val( selected_product.ordered_qty );
+
+    // parent components qty
+    $.each(selected_product.components, function(k,v){
+        $('#pc-' + selected_product.components[k].item.product_id).text(
+            '' + selected_product.components[k].item.description + ' (' + selected_product.components[k].item.quantity + ')'
+        );
+    });
+
+    // net total
+    var net_total = $('#add-to-cart-modal-total');
+    net_total.text( numberWithCommas((selected_product.net_amount).toFixed(2)) );
 }
 
 
