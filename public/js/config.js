@@ -1,3 +1,5 @@
+"use strict";
+
 $(document).ready(function(){
 
     //
@@ -47,6 +49,10 @@ $(document).ready(function(){
         btnCustomerRegister();
 
         btnSideMenu();
+
+        //initialize cart
+        main_cart = new Map();
+        showCart();
     }
 }); 
 
@@ -62,6 +68,7 @@ var routes = {
         create :        '/costumer'
     }
 };
+let main_cart;
 
 //
 // Requests GET | POST 
@@ -233,7 +240,6 @@ function validateContactNumber(value) {
     return true;
 }
 
-
 function btnLogin(){
     $('#btn-login').on('click',function(){
         window.location.href = '/login';
@@ -247,10 +253,105 @@ function btnLogout() {
     });
 }
 
-
 //global app functionalities
-function updateCartCount(){  
+function showCart(){
+    $('#btn-carts-qty').on('click', function(){
+        console.log('showing carts...');
+        var cart = $('.ui.modal.cart-modal');
+        cart.modal({
+            transition: 'fade up', 
+            inverted: true,
+            closable: true,
+            onHide: function () {
+                console.log('hidden');
+                updateCartCount();
+            },
+            onShow: function () {
+                console.log('shown');
+            },
+            onApprove: function () {
+                console.log('Approve');
+                updateCartCount();
+                // return validateModal()
+            }
+        }).modal('show');  
+        updateCart();
+    }); 
 }
+
+function removeItemFromCart(){
+    $('.remove-item-from-cart').on('click', function(){
+        console.log(this);
+        main_cart.delete( $(this).data('id') );
+
+        updateCart();
+    });
+}
+
+function updateCartCount(){  
+    var qty = 0;
+    for (let item of main_cart.values()) { // the same as of recipeMap.entries()
+        console.log(item);
+        qty = qty + item.ordered_qty;
+    }
+    $('#btn-carts-qty').html(
+        '<i class="cart icon"></i> ' + qty
+    );
+}
+
+function updateCart(){
+    //display item on cart
+        console.log(main_cart);
+        var mc_list_container = $('.ui.divided.animated.list.mc-list');
+        mc_list_container.empty();
+        var sub_total   = 0;
+        var total       = 0;
+        main_cart.forEach((value, key, map) => {
+            console.log(key,value); // cucumber: 500 etc
+
+            var item_srp = value.item.srp;
+            var item_ordered_qty = value.ordered_qty;
+            var item_total  = item_srp * item_ordered_qty;
+
+            var others = '';
+            if (value.instruction != '' || value.instruction != null) { 
+                others += '<div class="item">' + value.instruction + '</div>';
+            }
+
+            mc_list_container.append(
+                '<div class="item">'+
+                    '<div class="right floated content">' +
+                        '<span>PHP ' + numberWithCommas(item_total.toFixed(2))+'</span>&nbsp;'+
+                        '<a data-id="'+key+'" class="remove-item-from-cart">'+
+                            '<i class="large red remove link icon"></i>'+
+                        '</a>'+
+                    '</div>'+
+                    '<span class="ui avatar image " style="width:25px;">' + item_ordered_qty+'x</span>'+
+                    '<div class="content">'+
+                        '<a class="header">' + value.item.description+'</a>'+
+                        '<div class="description" style="padding:0px!important;">'+
+                            '<div class="ui list">'+
+                                others +
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>' 
+            );
+
+            sub_total += item_total;
+        });
+        // show sub total
+        $('#mc-subtotal').text(numberWithCommas(sub_total.toFixed(2)));
+        // show and applying deductions
+        total = sub_total;
+        $('#mc-total').text( numberWithCommas(total.toFixed(2)));
+        removeItemFromCart();
+
+        if(main_cart.size == 0){
+            mc_list_container.append('<h1 style="text-align: center;">EMPTY</h1>');
+        }
+}
+
 function showStoreOutletName(){
     return getStorage('outlet_name');
 }

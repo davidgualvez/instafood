@@ -2,7 +2,7 @@
   <i class="close icon"></i>
   <div class="header add-to-cart-modal-pname">  
   </div>
-  <div class="image content">
+  <div class="image content scrolling">
     <div class="ui medium image">
       {{-- <img src="/images/avatar/large/chris.jpg"> --}}
       <h2 class="ui sub header">

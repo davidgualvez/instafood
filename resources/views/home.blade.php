@@ -42,7 +42,8 @@
     <!-- CONTENT -->
     <div class="ui stackable grid container-fluid" style="margin:5px;"> 
         
-        <div class="twelve wide column">  
+        {{-- <div class="twelve wide column">   --}}
+        <div class="column">  
             <br>
             {{-- ======= --}}
             <div class="ui secondary menu"> 
@@ -119,19 +120,19 @@
             {{-- ==== ITEMS --}} 
         </div>
 
-        <div class="four wide sidebar column" id="example1">
+        {{-- <div class="four wide sidebar column" id="example1">
             <section class="ui basic vertical segment sticky cart" >   
                 <h2 class="ui header">Cart</h2> 
                 <div class="ui divided animated list">  
                      
                     <div class="item">
-                        {{-- Remove Button --}}
+                    
                         <div class="right floated content">
                             <a href="" class="">
                                 <i class="large red remove link icon"></i>
                             </a>
                         </div> 
-                        {{-- ITEM --}}
+                        
                         <img class="ui avatar image" src="https://chap.website/wp-content/uploads/2013/06/hoodie_4_front.jpg">
                         <div class="content">
                             <a class="header">TEST LAYOUT</a>
@@ -167,30 +168,14 @@
                             Total <small>(Incl. VAT)</small>
                          </div>
                     </div>
-                </div> 
-{{-- ==== --}}
-{{-- <div class="ui accordion">
-    <div class="title">
-        <i class="dropdown icon"></i>
-        INSTRUCTIONS(Optional)
-    </div>
-    <div class="content" style="padding-bottom:10px;">
-        <div class="ui form"> 
-            <div class="field"> 
-                <textarea rows="2" placeholder="e.g. no onions, no mayo &#10;Write comments in case you are allergic to ingredients or want to exclude some."></textarea>
-            </div>
-        </div>
-    </div> 
-</div>
-<br> --}}
-{{-- ==== --}}
+                </div>  
                 <div class="ui buttons fluid">
                     <button class="ui button">Prepaid</button>
                     <div class="or"></div>
                     <button class="ui positive button">Postpaid</button>
                 </div> 
             </section>
-        </div>
+        </div> --}}
 
     </div>
     <!-- END CONTENT -->  
@@ -202,6 +187,10 @@
     {{-- CUSTOMER REGISTRATION MODAL --}}
     @include('components.modal-customer-registration')
     {{-- END OF CUSTOMER REGISTRATION MODAL --}}
+
+    {{-- CART MODAL --}}
+    @include('components.modal-cart')
+    {{-- END OF CART MODAL --}}
 
 
 	<!-- JS -->

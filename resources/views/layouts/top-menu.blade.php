@@ -16,9 +16,9 @@
         {{-- <div class="item" id="clock"> 
         </div> --}}
         <div class="item"> 
-            <div class="ui purple label mini">
-                <i class="cart icon"></i> 22
-            </div> 
+            <a class="ui purple label mini" id="btn-carts-qty">
+                <i class="cart icon"></i> 0
+            </a> 
         </div>
         {{-- <a id="sidebar-menu" class="item  btn-signout">
                 <i class="sign-out icon"></i>
