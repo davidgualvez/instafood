@@ -314,7 +314,9 @@ function updateCart(){
             var item_total  = item_srp * item_ordered_qty;
 
             var others = '';
-            if (value.instruction != '' || value.instruction != null) { 
+
+
+            if ( value.instruction != null) {  
                 others += '<div class="item">' + value.instruction + '</div>';
             }
 
