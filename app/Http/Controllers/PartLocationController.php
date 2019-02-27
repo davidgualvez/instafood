@@ -66,7 +66,8 @@ class PartLocationController extends Controller
             return [
                 'product_id'    => $value->product_id,
                 'outlet_id'     => $value->outlet_id, 
-                'description'   => $value->description,
+                // 'description'   => $value->description,
+                'description'   => $value->short_code,
                 'srp'           => $value->retail,
                 'category_id'   => $value->category,
                 'group'         => [
@@ -136,18 +137,23 @@ class PartLocationController extends Controller
                 ->where('product_id',$pid)
                 ->first();
 
-        $result = $pl->postmixComponents;
+        $result = $pl->postmixModifiableComponents;
 
         if( !$result->isEmpty() ){
 
-            $result->transform( function($v) use ($pl) {
+            $result->transform( function($v) use ($request) {
+
+                // $pl = PartLocation::where('outlet_id', $request->outlet_id) 
+                //         ->where('product_id',$v->product_id)
+                //         ->first(); 
+                //var_dump($v);
                 return [
                     'parent_id'         => $v->parent_id,
                     'product_id'        => $v->product_id,
                     'description'       => $v->description,
                     'quantity'          => $v->quantity,
                     'unit_cost'         => $v->unit_cost,
-                    'rp'                => $pl->retail,
+                    'rp'                => $v->partLocation->retail, 
                     'type'              => $v->type, 
                     'modifiable'        => $v->modifiable,
                     'product_category'  => $v->comp_cat_id
@@ -167,7 +173,8 @@ class PartLocationController extends Controller
 
         // parts by location and group
         $list = PartLocation::where('outlet_id', $request->outlet_id)
-                    ->where('group_id', $id)
+                    // ->where('group_id', $id)
+                    ->where('category_id', $id)
                     ->get();
 
         $list->transform(function ($value) { 
@@ -176,8 +183,9 @@ class PartLocationController extends Controller
                 'product_id'    => $value->product_id,
                 'outlet_id'     => $value->outlet_id, 
                 'description'   => $value->description,
+                'short_code'    => $value->short_code,
                 'srp'           => $value->retail,
-                'category_id'   => $value->category,
+                'category_id'   => $value->category_id,
                 'group'         => [
                     'group_code'    => $value->group->group_id,
                     'description'   => $value->group->description

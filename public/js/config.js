@@ -311,13 +311,27 @@ function updateCart(){
 
             var item_srp = value.item.srp;
             var item_ordered_qty = value.ordered_qty;
-            var item_total  = item_srp * item_ordered_qty;
+            var item_total  = (item_srp * item_ordered_qty);
 
             var others = '';
 
+            $.each(value.components, function (k, v) {
+                console.log('...: ' + v.item.quantity);
+                if(v.item.quantity > 0){ 
+                    others += '<div class="item"> + '+ v.item.quantity + ' x ' + v.item.description + ' (PHP 0.00)</div>'; 
+                }
+
+                $.each(v.selectable_items, function (kk, vv) {
+                    if(vv.qty > 0){
+                        var amount = vv.qty * vv.price;
+                        others += '<div class="item"> + ' + vv.qty + ' x ' + vv.short_code + ' (PHP '+ numberWithCommas(amount.toFixed(2)) +')</div>';
+                    }
+                });
+
+            });
 
             if ( value.instruction != null) {  
-                others += '<div class="item">' + value.instruction + '</div>';
+                others += '<div class="item"> + ' + value.instruction + '</div>';
             }
 
             mc_list_container.append(
@@ -340,7 +354,7 @@ function updateCart(){
                 '</div>' 
             );
 
-            sub_total += item_total;
+            sub_total += (item_total)  + value.additional_cost;
         });
         // show sub total
         $('#mc-subtotal').text(numberWithCommas(sub_total.toFixed(2)));
