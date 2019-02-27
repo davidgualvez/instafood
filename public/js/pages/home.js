@@ -311,7 +311,7 @@ function btnAddToCart(){
         .addClass('active') 
 
         addToCartModal.modal({
-            transition: 'horizontal flip',
+            transition: 'fade up',
             inverted: true,
             closable : true, 
             onHide: function(){

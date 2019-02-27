@@ -28,16 +28,16 @@ $(document).ready(function(){
         $('.menunav-customer-registration').on('click', function(){
             console.log('customer registration btn...');
             $('.ui.modal.transition.modal-customer-registration.longer').modal({
-                transition: 'horizontal flip',
+                transition: 'fade up',
                 inverted: true,
                 closable : true, 
                 centered: false,
                 onHide: function(){
-                    console.log('hidden'); 
-                    $('.ui.sidebar').sidebar('toggle');
+                    console.log('hidden');  
                 },
                 onShow: function(){
                     console.log('shown');
+                    $('.ui.sidebar').sidebar('toggle');
                 },
                 onApprove: function() {
                     console.log('Approve');
@@ -262,6 +262,7 @@ function showCart(){
             transition: 'fade up', 
             inverted: true,
             closable: true,
+            centered: false,
             onHide: function () {
                 console.log('hidden');
                 updateCartCount();
@@ -365,7 +366,13 @@ function updateCart(){
 
         if(main_cart.size == 0){
             mc_list_container.append('<h1 style="text-align: center;">EMPTY</h1>');
+        
+            $('#mc-btn-proceed').attr('disabled','disabled');
+            return;
+        }else{
+            $('#mc-btn-proceed').removeAttr('disabled','disabled');
         }
+
 }
 
 function showStoreOutletName(){

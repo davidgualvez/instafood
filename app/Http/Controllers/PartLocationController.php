@@ -50,13 +50,15 @@ class PartLocationController extends Controller
           
         if( $categories[0] == null || $categories[0] == ''){ 
             $pl = PartLocation::where('outlet_id', $duty->outlet)
-                ->where('description', 'LIKE', '%' . $search . '%') 
+                ->where('description', 'LIKE', '%' . $search . '%')
+                ->where('retail','>',0)
                 ->orderBy('product_id', 'desc')
                 ->simplePaginate($limit);
         }else{ 
             $pl = PartLocation::where('outlet_id', $duty->outlet)
                 ->where('description', 'LIKE', '%' . $search . '%')
                 ->whereIn('group_id', $categories)
+                ->where('retail','>',0)
                 ->orderBy('product_id', 'desc')
                 ->simplePaginate($limit);
         } 

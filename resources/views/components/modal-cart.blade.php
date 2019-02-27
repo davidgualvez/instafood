@@ -1,4 +1,5 @@
 <div class="ui modal cart-modal">
+  <i class="close icon"></i>
   <div class="header">Cart</div>
   <div class="scrolling content">
 {{-- //== --}}
@@ -64,10 +65,12 @@
         </div>
     </div> 
     <div class="ui divider"></div>
+    
     <div class="ui buttons fluid">
-        <button class="ui button">Prepaid</button>
+        <button class="ui green button" id="mc-btn-proceed">Proceed</button>
+        <!-- <button class="ui button">Prepaid</button>
         <div class="or"></div>
-        <button class="ui green button">Postpaid</button>
+        <button class="ui green button">Postpaid</button> -->
     </div> 
   </div>
 </div>

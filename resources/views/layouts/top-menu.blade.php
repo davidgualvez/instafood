@@ -10,9 +10,9 @@
     </div>
 
     <div class="right menu">
-        {{-- <a href="" class="item">
+        <a href="" class="item">
             <i class="sync green icon"></i> 
-        </a>  --}}
+        </a>
         {{-- <div class="item" id="clock"> 
         </div> --}}
         <div class="item"> 
