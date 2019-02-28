@@ -24,3 +24,7 @@ Route::post('/products', 					'PartLocationController@lists');
 Route::post('/products/group', 				'PartLocationController@groups');
 Route::post('/product/{pid}/components',	'PartLocationController@getComponents');
 Route::get('/products/group/{id}', 			'PartLocationController@getByGroup');
+
+
+
+Route::post('/sales-order',                 'SalesOrderController@store');
