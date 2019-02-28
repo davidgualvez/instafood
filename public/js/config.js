@@ -28,16 +28,16 @@ $(document).ready(function(){
         $('.menunav-customer-registration').on('click', function(){
             console.log('customer registration btn...');
             $('.ui.modal.transition.modal-customer-registration.longer').modal({
-                transition: 'horizontal flip',
+                transition: 'fade up',
                 inverted: true,
                 closable : true, 
                 centered: false,
                 onHide: function(){
-                    console.log('hidden'); 
-                    $('.ui.sidebar').sidebar('toggle');
+                    console.log('hidden');  
                 },
                 onShow: function(){
                     console.log('shown');
+                    $('.ui.sidebar').sidebar('toggle');
                 },
                 onApprove: function() {
                     console.log('Approve');
@@ -262,6 +262,7 @@ function showCart(){
             transition: 'fade up', 
             inverted: true,
             closable: true,
+            centered: false,
             onHide: function () {
                 console.log('hidden');
                 updateCartCount();
@@ -311,12 +312,13 @@ function updateCart(){
 
             var item_srp = value.item.srp;
             var item_ordered_qty = value.ordered_qty;
-            var item_total  = item_srp * item_ordered_qty;
+            var item_total  = (item_srp * item_ordered_qty);
 
             var others = '';
 
             $.each(value.components, function (k, v) {
                 console.log('...: ' + v.item.quantity);
+<<<<<<< HEAD
                 if(v.item.quantity > 0){
                     others += '<div class="item"> + '+ v.item.quantity + ' x ' + v.item.description + ' (PHP 0.00)</div>';
                 }
@@ -325,6 +327,19 @@ function updateCart(){
                         others += '<div class="item"> + ' + vv.qty + ' x ' + vv.description + ' (PHP 0.00)</div>';
                     }
                 });
+=======
+                if(v.item.quantity > 0){ 
+                    others += '<div class="item"> + '+ v.item.quantity + ' x ' + v.item.description + ' (PHP 0.00)</div>'; 
+                }
+
+                $.each(v.selectable_items, function (kk, vv) {
+                    if(vv.qty > 0){
+                        var amount = vv.qty * vv.price;
+                        others += '<div class="item"> + ' + vv.qty + ' x ' + vv.short_code + ' (PHP '+ numberWithCommas(amount.toFixed(2)) +')</div>';
+                    }
+                });
+
+>>>>>>> e76b827205bbfad6fe2e65e985e7a30a6b1a7826
             });
 
             if ( value.instruction != null) {  
@@ -351,7 +366,7 @@ function updateCart(){
                 '</div>' 
             );
 
-            sub_total += item_total;
+            sub_total += (item_total)  + value.additional_cost;
         });
         // show sub total
         $('#mc-subtotal').text(numberWithCommas(sub_total.toFixed(2)));
@@ -362,7 +377,13 @@ function updateCart(){
 
         if(main_cart.size == 0){
             mc_list_container.append('<h1 style="text-align: center;">EMPTY</h1>');
+        
+            $('#mc-btn-proceed').attr('disabled','disabled');
+            return;
+        }else{
+            $('#mc-btn-proceed').removeAttr('disabled','disabled');
         }
+
 }
 
 function showStoreOutletName(){

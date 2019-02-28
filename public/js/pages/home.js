@@ -232,7 +232,8 @@ function getComponents(outlet_id = null,product_id = null){
                             }
                             item.selectable_items.push({
                                 category_id     : vv.category_id,
-                                description     : vv.description,  
+                                description     : vv.description,
+                                short_code      : vv.short_code,  
                                 is_food         : vv.is_food,
                                 is_postmix      : vv.is_postmix,
                                 outlet_id       : vv.outlet_id,
@@ -253,7 +254,7 @@ function getComponents(outlet_id = null,product_id = null){
                                     '</div>'+
                                   '</div>'+
                                   '<div class="content">'+
-                                    vv.description + ' ( ₱ ' + numberWithCommas((rp).toFixed(2)) +' )'+
+                                    vv.short_code + ' ( ₱ ' + numberWithCommas((rp).toFixed(2)) +' )'+
                                   '</div>'+
                                 '</div>'
                             );
@@ -310,7 +311,7 @@ function btnAddToCart(){
         .addClass('active') 
 
         addToCartModal.modal({
-            transition: 'horizontal flip',
+            transition: 'fade up',
             inverted: true,
             closable : true, 
             onHide: function(){
@@ -488,6 +489,16 @@ function setSelectedItem(item){
 }
 
 function selectedItemCostComputation(){ 
+
+    selected_product.additional_cost = 0;
+    $.each(selected_product.components, function(k,v){
+        $.each(v.selectable_items, function(kk,vv){
+            if(vv.qty > 0){
+                selected_product.additional_cost += (vv.qty * vv.price);
+            }
+        });
+    });
+
     selected_product.sub_total      = selected_product.item.srp * selected_product.ordered_qty;
     selected_product.net_amount     = selected_product.sub_total + selected_product.additional_cost;
 }

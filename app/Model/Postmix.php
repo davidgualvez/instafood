@@ -41,5 +41,8 @@ class Postmix extends Model
     /**
      * RELATIONSHIT
      */
+    public function partLocation(){
+        return $this->belongsTo('App\Model\PartLocation','PARTSID','PRODUCT_ID');
+    }
 
 }
