@@ -373,12 +373,18 @@ function btnNext1HcScpwdPlus() {
 
 $('#mc-next1-btn-finish').on('click', function(){
     
+    var items=[];
+    for (let item of main_cart.values()) {
+        //alert(amount); // 500, 350, 50
+        items.push(item);
+    }
+
     var data = {
-        items : main_cart,
+        items : items,
         others: main_cart_other
     };
 
-    console.log(data);
+    console.log(items);
     postWithHeader('/sales-order', data, function(response){
         console.log(data,'clicked....', response);
     }); 
