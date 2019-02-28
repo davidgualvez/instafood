@@ -315,9 +315,20 @@ function updateCart(){
 
             var others = '';
 
+            $.each(value.components, function (k, v) {
+                console.log('...: ' + v.item.quantity);
+                if(v.item.quantity > 0){
+                    others += '<div class="item"> + '+ v.item.quantity + ' x ' + v.item.description + ' (PHP 0.00)</div>';
+                }
+                $.each(v.selectable_items, function (kk, vv) {
+                    if (vv.qty > 0) {
+                        others += '<div class="item"> + ' + vv.qty + ' x ' + vv.description + ' (PHP 0.00)</div>';
+                    }
+                });
+            });
 
             if ( value.instruction != null) {  
-                others += '<div class="item">' + value.instruction + '</div>';
+                others += '<div class="item"> + ' + value.instruction + '</div>';
             }
 
             mc_list_container.append(
