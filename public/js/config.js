@@ -262,7 +262,8 @@ function showCart(){
             transition: 'fade up', 
             inverted: true,
             closable: true,
-            centered: false,
+            centered: true,
+            allowMultiple: true,
             onHide: function () {
                 console.log('hidden');
                 updateCartCount();
@@ -276,9 +277,31 @@ function showCart(){
                 // return validateModal()
             }
         }).modal('show');  
-        updateCart();
+        updateCart(); 
     }); 
 }
+
+// function showCartProceed(){
+    $('#mc-btn-proceed').on('click', function(){
+        console.log('test proceed...');
+        var proceedToNextCart = $('.ui.modal.cart-modal-next1');
+        proceedToNextCart.modal({
+            transition: 'fade up',
+            inverted: true,
+            closable: true,
+            centered: true,
+            onHide: function () {
+                console.log('hidden'); 
+            },
+            onShow: function () {
+                console.log('shown');
+            },
+            onApprove: function () {
+                console.log('Approve');
+            }
+        }).modal('show');
+    });
+// }
 
 function removeItemFromCart(){
     $('.remove-item-from-cart').on('click', function(){
@@ -318,16 +341,6 @@ function updateCart(){
 
             $.each(value.components, function (k, v) {
                 console.log('...: ' + v.item.quantity);
-<<<<<<< HEAD
-                if(v.item.quantity > 0){
-                    others += '<div class="item"> + '+ v.item.quantity + ' x ' + v.item.description + ' (PHP 0.00)</div>';
-                }
-                $.each(v.selectable_items, function (kk, vv) {
-                    if (vv.qty > 0) {
-                        others += '<div class="item"> + ' + vv.qty + ' x ' + vv.description + ' (PHP 0.00)</div>';
-                    }
-                });
-=======
                 if(v.item.quantity > 0){ 
                     others += '<div class="item"> + '+ v.item.quantity + ' x ' + v.item.description + ' (PHP 0.00)</div>'; 
                 }
@@ -339,7 +352,6 @@ function updateCart(){
                     }
                 });
 
->>>>>>> e76b827205bbfad6fe2e65e985e7a30a6b1a7826
             });
 
             if ( value.instruction != null) {  
