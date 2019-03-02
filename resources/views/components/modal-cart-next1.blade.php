@@ -58,9 +58,26 @@
         </div>
 
         <div class="column">
-            {{-- <p>
-                ....
-            </p> --}}
+            <div class="ui form">
+                <div class="field">
+                    <label>Search by Mobile number</label>
+                    <div class="ui mini labeled input">
+                        <div class="ui label">
+                            +63
+                        </div>
+                        <input id="mc-next1-txt-mnum" type="text" placeholder="9xxxxxxxxx">
+                        <button id="mc-next1-mnum-btn-search" class="ui icon button">
+                            <i class="search icon"></i>
+                        </button>
+                    </div>
+                </div> 
+            </div>
+            <div class="ui segment">
+                <h4 class="ui header">Result</h4>
+                <div class="ui divider"></div> 
+                <div id="mc-next1-customer-result">
+                </div>
+            </div>
         </div>
         
     </div>

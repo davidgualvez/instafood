@@ -51,15 +51,17 @@ class CustomerController extends Controller
                     'message'   => 'Mobile number is used.'
                 ]);
             }
-
+            
             $web_user   =   new WebUser;
             $customer   =   new Customer; 
 
             $new_web_user_id    = $web_user->getNewId(); 
+            
             $new_customer_id    = $customer->getNewId();
-
+            //dd('test', $new_customer_id);
+            
             // create new web user
-            $web_user->id               = $new_web_user_id;
+            //$web_user->id               = $new_web_user_id;
             $web_user->name             = $request->name;
             $web_user->mobile_number    = $request->mnumber;
             $web_user->password         = md5($request->mnumber);
@@ -144,5 +146,36 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Searching of customer
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request){ 
+
+        $customer = new Customer;
+
+        if($request->search_by == 'mobile number'){
+            $data = (object)$request->data;
+            $result     = $customer->findByMobile($data->mobile_number);
+
+            if( is_null($result) ){
+                return response()->json([
+                    'success'   => false,
+                    'status'    => 400,
+                    'message'   => 'Customer not found'
+                ]);
+            }
+
+            return response()->json([
+                'success'   => true,
+                'status'    => 200,
+                'message'   => 'success',
+                'data'      => $result
+            ]); 
+        }
     }
 }

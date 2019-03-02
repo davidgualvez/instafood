@@ -293,7 +293,8 @@ function showCart(){
         main_cart_other = {
             headcounts: {
                 regular: 1,
-                sc_pwd: 0
+                sc_pwd: 0,
+                mobile_number : ''
             }
         };
     }); 
@@ -336,7 +337,7 @@ function updateCartNext1(){
 function btnNext1HcRegularMinus(){
     $('#cart-modal-next1-hc-regular-btn-minus').on('click', function(){
         console.log('test....1');
-        if (main_cart_other.headcounts.regular > 0 ){
+        if (main_cart_other.headcounts.regular > 1 ){
             main_cart_other.headcounts.regular --;
         }
 
@@ -371,11 +372,60 @@ function btnNext1HcScpwdPlus() {
     });
 }
 
+$('#mc-next1-mnum-btn-search').on('click', function(){
+    console.log('test click...');
+    var mnum = $('#mc-next1-txt-mnum');
+    if(mnum.val() == null || mnum.val() == ''){
+        showWarning('', 'Mobile number is requred!', function(){
+
+        });
+        return;
+    }
+
+    var data = {
+        search_by   : 'mobile number',
+        data        : {
+            mobile_number : mnum.val()
+        }
+    };
+
+    $('#mc-next1-mnum-btn-search').addClass('loading');
+    postWithHeader('/customer/search', data, function(response){
+        $('#mc-next1-mnum-btn-search').removeClass('loading');
+
+        var output = $('#mc-next1-customer-result');
+        if(response.success == false){
+            output.html('<a class="ui yellow label">'+response.message+'</a>');
+            main_cart_other.headcounts.mobile_number = null;
+            return;
+        }
+
+        var name = response.data.NAME;
+        var points = parseFloat(response.data.POINTS).toFixed(2);
+        var wallet = parseFloat(response.data.WALLET).toFixed(2);
+        output.html(
+            '<div class="ui list">'+
+                '<div class="item">'+
+                    '<strong>Name:</strong> '+ name+
+                '</div>'+
+                '<div class="item">'+
+                    '<strong>Points:</strong> '+ numberWithCommas(points)+
+                '</div>'+
+                '<div class="item">'+
+                    '<strong>Wallet:</strong> '+ numberWithCommas(wallet)+
+                '</div>'+
+            '</div>'
+        );
+        main_cart_other.headcounts.mobile_number = response.data.MOBILE_NUMBER;
+        console.log(response);
+    });
+
+});
+
 $('#mc-next1-btn-finish').on('click', function(){
     
     var items=[];
     for (let item of main_cart.values()) {
-        //alert(amount); // 500, 350, 50
         items.push(item);
     }
 
@@ -387,7 +437,7 @@ $('#mc-next1-btn-finish').on('click', function(){
     console.log(items);
     postWithHeader('/sales-order', data, function(response){
         console.log(data,'clicked....', response);
-    }); 
+    });
 
 });
 

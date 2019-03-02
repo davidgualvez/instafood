@@ -28,3 +28,5 @@ Route::get('/products/group/{id}', 			'PartLocationController@getByGroup');
 
 
 Route::post('/sales-order',                 'SalesOrderController@store');
+
+Route::post('customer/search',              'CustomerController@search');

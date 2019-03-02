@@ -36,7 +36,7 @@ class SalesOrderController extends Controller
     {
         //
         dd( 
-            $request->others['headcounts']['regular'] ,
+            $request->others ,
             $request->items
         );
 

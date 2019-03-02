@@ -55,8 +55,15 @@ class Customer extends Model
     public function getNewId(){
     	$result = static::where('branch_id', config('custom.branch_id'))
     				->orderBy('customer_id','desc')
-    				->first();  
-    				
+    				->first();
+       
+        if( is_null($result)){
+            return 1;
+        }			
     	return $result->customer_id + 1;
+    }
+
+    public function findByMobile($val){ 
+        return static::where('mobile_number',$val)->first(); 
     }
 }
