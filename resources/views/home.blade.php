@@ -202,6 +202,8 @@
 	<script src="/dist/semantic.min.js"></script>
     <script src="/js/plugins/iziToast.min.js"></script>
     <script src="/js/plugins/moment.js"></script>
+    <script src="/js/plugins/pdfmake.min.js"></script>
+     <script src="/js/plugins/vfs_fonts.js"></script>
 	<script src="/js/config.js"></script>
 	<!-- CUSTOM JS --> 
 	<script src="/js/pages/home.js"></script> 

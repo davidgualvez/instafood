@@ -1,7 +1,7 @@
 <?php 
 
-namespace App\AppServices;
-use App\BranchLastIssuedNumber;
+namespace App\Services;
+use App\Model\BranchLastIssuedNumber;
 use Carbon\Carbon;
 
 class BranchLastIssuedNumberServices {
@@ -17,7 +17,7 @@ class BranchLastIssuedNumberServices {
 	}
 
 	public function findOrCreate(){ 
-		$r = $this->blin->where('branch_id', config('cpp.branch_id') )->first();
+		$r = $this->blin->where('branch_id', config('custom.branch_id') )->first();
 
 		if( is_null($r) ){
 			$this->create();
@@ -28,7 +28,7 @@ class BranchLastIssuedNumberServices {
 	}
 
 	public function create(){
-		$this->blin->branch_id 				= config('cpp.branch_id');
+		$this->blin->branch_id 				= config('custom.branch_id');
 		$this->blin->order_slip_header_no	= 0;
 		$this->blin->order_slip_detail_no  	= 0;
 		$this->blin->sales_order_header_no  = 0;

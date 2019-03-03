@@ -196,7 +196,9 @@ function getComponents(outlet_id = null,product_id = null){
                             product_category: v.product_category,
                             modifiable      : v.modifiable,
                             rp              : parseFloat(v.rp),
-                            quantity        : parseInt(v.quantity)
+                            quantity        : parseInt(v.quantity),
+                            parts_type      : v.parts_type,
+                            kitchen_loc     : v.kitchen_loc
                         },
                         qty: selected_product.ordered_qty,
                         selectable_items: []
@@ -239,7 +241,9 @@ function getComponents(outlet_id = null,product_id = null){
                                 outlet_id       : vv.outlet_id,
                                 product_id      : vv.product_id,
                                 price           : rp,
-                                qty             : 0
+                                qty             : 0,
+                                parts_type      : vv.parts_type,
+                                kitchen_loc     : vv.kitchen_loc
                             });
 
                             selectable_container.append(
@@ -445,10 +449,10 @@ $('#add-to-cart-modal-btn-minus-qty').on('click', function () {
  
 $('#add-to-cart-modal-btn').on('click', function () { 
     console.log(selected_product);
-    var now = moment();
-    var beginning_of_now = moment(''+now.year()+'-'+now.month()+'-'+now.day());
-    var id = now.diff(beginning_of_now);
-    console.log(id);
+     
+    var now = moment();  
+    var id = now.year() + now.millisecond();
+    
     main_cart.set(id, selected_product);
     selected_product = null;
     $('.ui.modal.transition.add-to-cart-modal.longer').modal('hide');

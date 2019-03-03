@@ -14,8 +14,9 @@ class Customer extends Model
      use Eloquence, Mappable, Mutable;
     //
     protected $table = 'Customers'; 
+    public $timestamps = false;
 
-    //model mapping
+    //model mapping 
     protected $maps = [
         'branch_id'         => 'BRANCHID',
         'customer_id'       => 'CUSTOMERID',
@@ -32,7 +33,7 @@ class Customer extends Model
         'birthdate'         => 'BIRTHDATE',
         'is_loyalty'        => 'IS_LOYALTY',
         'is_inhouse'        => 'IS_INHOUSE',
-        'scpwd_id'          => 'SCPWD_ID', 
+        'scpwd_id'          => 'SCPWD_ID',
     ];
     
     protected $getterMutators = [

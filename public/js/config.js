@@ -294,8 +294,9 @@ function showCart(){
             headcounts: {
                 regular: 1,
                 sc_pwd: 0,
-                mobile_number : ''
-            }
+            },
+            customer_name : null,
+            mobile_number: null
         };
     }); 
 }
@@ -396,7 +397,7 @@ $('#mc-next1-mnum-btn-search').on('click', function(){
         var output = $('#mc-next1-customer-result');
         if(response.success == false){
             output.html('<a class="ui yellow label">'+response.message+'</a>');
-            main_cart_other.headcounts.mobile_number = null;
+            main_cart_other.mobile_number = null;
             return;
         }
 
@@ -416,8 +417,8 @@ $('#mc-next1-mnum-btn-search').on('click', function(){
                 '</div>'+
             '</div>'
         );
-        main_cart_other.headcounts.mobile_number = response.data.MOBILE_NUMBER;
-        console.log(response);
+        main_cart_other.mobile_number = response.data.MOBILE_NUMBER; 
+        main_cart_other.customer_name = response.data.NAME;
     });
 
 });
@@ -433,10 +434,22 @@ $('#mc-next1-btn-finish').on('click', function(){
         items : items,
         others: main_cart_other
     };
-
-    console.log(items);
+ 
     postWithHeader('/sales-order', data, function(response){
-        console.log(data,'clicked....', response);
+        if( response.success == false){
+            showWarning('', response.message, function(){
+
+            });
+            return;
+        }
+
+        printOS(data, response.data);
+        var proceedToNextCart = $('.ui.modal.cart-modal-next1');
+        proceedToNextCart.modal('hide');
+        main_cart.clear();
+        updateCart();
+        updateCartCount();
+
     });
 
 });
@@ -665,4 +678,265 @@ function btnSideMenu(){
     $('#sidebar-menu').on('click', function(){
         $('.ui.sidebar').sidebar('toggle');
     });
+}
+
+function printOS(data, response_data){
+    console.log(data, response_data, response_data.orderslip_id); 
+
+    var customer_information = null;
+    if (data.others.mobile_number != null){
+        customer_information = [
+            {
+                columns: [
+                    {
+                        text: 'Customer Information'
+                    }
+                ],
+                style: 'cust_info_header'
+            },
+            {
+                columns: [
+                    {
+                        text: 'Name \t\t : ' + data.others.customer_name
+                    }
+                ],
+                style: 'cust_info_detail'
+            },
+            {
+                columns: [
+                    {
+                        text: 'Mobile No. : +63-' + data.others.mobile_number
+                    }
+                ],
+                style: 'cust_info_detail',
+                margin: [15, 0, 0, 15],
+            }
+        ];
+    }
+
+    var items = [];
+    $.each(data.items, function(k,v){
+
+        var price   = parseFloat(v.item.srp);
+        var qty     = v.ordered_qty;
+        var amount  = (qty * price).toFixed(2);
+
+        var data = {
+            columns: [
+                {
+                    text: v.ordered_qty+'x',
+                    margin: [5, 0, 0, 0],
+                    width: 25,
+                },
+                {
+                    text: v.item.description,
+                    margin: [0, 0, 0, 0],
+                    width: 125,
+                },
+                {
+                    text: 'Php ' + numberWithCommas(amount),
+                    alignment: 'right',
+                    width: 70,
+                    margin: [0, 0, 10, 0],
+                }
+            ],
+            fontSize: '8',
+            margin: [0, 2, 0, 0],
+        };  
+        items.push(data);
+        //=============================================================
+
+        $.each( v.components, function(kk,vv) {
+            console.log(vv);
+            if (vv.item.quantity > 0){
+                var price   = parseFloat(vv.item.rp);
+                var qty     = vv.item.quantity;
+                var amount  = (0).toFixed(2);
+                
+                var data = {
+                    columns: [
+                        {
+                            text: '',
+                            margin: [5, 0, 0, 0],
+                            width: 25,
+                        },
+                        {
+                            text: '+ (' +qty + ') ' + vv.item.description,
+                            margin: [0, 0, 0, 0],
+                            width: 125,
+                        },
+                        {
+                            text: 'Php ' + numberWithCommas(amount),
+                            alignment: 'right',
+                            width: 70,
+                            margin: [0, 0, 10, 0],
+                        }
+                    ],
+                    fontSize: '8',
+                    margin: [0, 2, 0, 0],
+                };
+                items.push(data); 
+            }
+
+            //=============================================================
+            $.each(vv.selectable_items, function (kkk, vvv) {
+                if (vvv.qty > 0) {
+                    var price = parseFloat(vvv.price);
+                    var qty = vvv.qty;
+                    var amount = (qty * price).toFixed(2);
+                    var data = {
+                        columns: [
+                            {
+                                text: '',
+                                margin: [5, 0, 0, 0],
+                                width: 25,
+                            },
+                            {
+                                text: '+ (' + qty + ') ' + vvv.short_code,
+                                margin: [0, 0, 0, 0],
+                                width: 125,
+                            },
+                            {
+                                text: 'Php ' + numberWithCommas(amount),
+                                alignment: 'right',
+                                width: 70,
+                                margin: [0, 0, 10, 0],
+                            }
+                        ],
+                        fontSize: '8',
+                        margin: [0, 2, 0, 0],
+                    };
+                    items.push(data);
+                }
+            });
+
+        });
+        //=============================================================
+        
+        // appending intruction
+        if( v.instruction != null){
+            var data = {
+                columns: [
+                    {
+                        text: '',
+                        margin: [5, 0, 0, 0],
+                        width: 25,
+                    },
+                    {
+                        text: '+ '+v.instruction,
+                        margin: [0, 0, 0, 0],
+                        width: 125,
+                    },
+                    {
+                        text: '',
+                        alignment: 'right',
+                        width: 70,
+                        margin: [0, 0, 10, 0],
+                    }
+                ],
+                fontSize: '8',
+                margin: [0, 2, 0, 0],
+            };
+            items.push(data);
+        }
+
+    });
+    console.log(items);
+
+    var docDefinition = {
+        content: [
+            {
+                columns: [
+                    {
+                        text: 'Enchanted Kingdom',
+                    }
+                ],
+                style: 'header'
+            },
+
+            {
+                columns: [
+                    { 
+                        qr: '' + response_data.orderslip_id
+                    }
+                ],
+                style: 'qrcode',
+            },
+
+            {
+                columns: [
+                    {
+                        text: 'Order Slip No: ' + response_data.orderslip_id
+                    }
+                ],
+                style: 'os_no'
+            },
+
+            customer_information,
+
+            items
+        ],
+        styles: {
+            /**
+             * HEADER
+             */
+            header: {
+                alignment: 'center',
+                margin: [0, 10, 0, 0],
+                fontSize: '15',
+                bold: true
+            },
+
+            /**
+             * QR Code
+             */
+            qrcode: {
+                alignment: 'center',
+                margin: [0, 15, 0, 0],
+            },
+
+            /**
+             * OS #
+             */
+            os_no: {
+                alignment: 'center',
+                margin: [0, 10, 0, 15],
+                fontSize: '10',
+            },
+
+            /**
+             * Customer Info
+             */
+            cust_info_header: {
+                alignment: 'left',
+                margin: [15, 10, 0, 0],
+                fontSize: '9',
+                bold: true
+            },
+            cust_info_detail: {
+                alignment: 'left',
+                margin: [15, 0, 0, 0],
+                fontSize: '8'
+            }
+
+
+        },
+
+        //pageSize: 'A5',
+        pageSize: { width: 220, height: 'auto' },
+        // [left, top, right, bottom] or [horizontal, vertical] or just a number for equal margins
+        pageMargins: [2, 0, 0, 15],
+    };
+
+    // if (v == 'preview') {
+        //pdfMake.createPdf(docDefinition).open();
+    // }
+
+    // if (v == 'download') {
+        pdfMake.createPdf(docDefinition).download(
+            'Enchanted Kingdom OR - ' +
+            '.pdf'
+        );
+    // }
+
 }

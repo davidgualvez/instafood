@@ -20,18 +20,19 @@ class PartLocation extends Model
      * Model Mapping
      */
     protected $maps = [
-        'product_id'    => 'PRODUCT_ID',
-        'outlet_id'     => 'OUTLETID',
-        'description'   => 'DESCRIPTION',
-        'group_id'         => 'GROUP',
-        'category_id'      => 'CATEGORY',
-        'short_code'    => 'SHORTCODE',
-        'retail'        => 'RETAIL',
-        'postmix'       => 'POSTMIX',
-        'prepartno'     => 'PREPARTNO',
-        'ssbuffer'      => 'SSBUFFER',
-        'is_food'       => 'MSGROUP',
-        'qty'           => 'QUANTITY'
+        'product_id'        => 'PRODUCT_ID',
+        'outlet_id'         => 'OUTLETID',
+        'description'       => 'DESCRIPTION',
+        'group_id'          => 'GROUP',
+        'category_id'       => 'CATEGORY',
+        'short_code'        => 'SHORTCODE',
+        'retail'            => 'RETAIL',
+        'postmix'           => 'POSTMIX',
+        'prepartno'         => 'PREPARTNO',
+        'ssbuffer'          => 'SSBUFFER',
+        'is_food'           => 'MSGROUP',
+        'qty'               => 'QUANTITY',
+        'kitchen_location'  => 'PRODGRP'
     ];
 
     protected $getterMutators = [

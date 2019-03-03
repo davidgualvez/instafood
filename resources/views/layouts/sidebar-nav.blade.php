@@ -3,10 +3,10 @@
     <a class="active item">
         Welcome! &nbsp;<strong id="employee_name"></strong>
     </a>  
-    <a class="item">
+    {{-- <a class="item">
         <i class=" icon"></i>
         Order History
-    </a>  
+    </a>   --}}
     <a class="item menunav-customer-registration">
         <i class="plus icon"></i>
         Customer

@@ -61,7 +61,7 @@ class CustomerController extends Controller
             //dd('test', $new_customer_id);
             
             // create new web user
-            //$web_user->id               = $new_web_user_id;
+            $web_user->id               = $new_web_user_id;
             $web_user->name             = $request->name;
             $web_user->mobile_number    = $request->mnumber;
             $web_user->password         = md5($request->mnumber);
@@ -70,6 +70,7 @@ class CustomerController extends Controller
             // create new customer
             $customer->branch_id        = config('custom.branch_id');
             $customer->customer_id      = $new_customer_id;
+            $customer->customer_code    = $new_customer_id;
             $customer->user_id          = $new_web_user_id;
             $customer->name             = $request->name;
             $customer->mobile_number    = $request->mnumber;

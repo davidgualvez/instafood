@@ -36,7 +36,10 @@ class WebUser extends Model
      * LOGIC
      */
     public function getNewId(){
-    	$result = static::orderBy('id','desc')->first(); 
+        $result = static::orderBy('id','desc')->first(); 
+        if( is_null($result)){
+            return 1;
+        }
     	return $result->id + 1;
     } 
     

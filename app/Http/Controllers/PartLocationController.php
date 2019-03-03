@@ -9,6 +9,7 @@ use App\Services\Helper;
 use App\Model\User;
 use App\Model\PartLocation;
 use App\Model\Postmix;
+use App\Model\SitePart;
 use Carbon\Carbon;
 
 class PartLocationController extends Controller
@@ -63,8 +64,11 @@ class PartLocationController extends Controller
                 ->simplePaginate($limit);
         } 
 
-        $pl->getCollection()->transform(function ($value) { 
+        $pl->getCollection()->transform(function ($value) {
             //$url = Storage::url($value->IMAGE);
+            $parts_type = SitePart::getPartsTypeById($value->product_id);
+            $kitchen_loc = SitePart::getKitchenLocationById($value->product_id);
+
             return [
                 'product_id'    => $value->product_id,
                 'outlet_id'     => $value->outlet_id, 
@@ -78,7 +82,9 @@ class PartLocationController extends Controller
                 ],  
                 'image'         => '', 
                 'is_food'       => $value->is_food,
-                'is_postmix'    => $value->postmix
+                'is_postmix'    => $value->postmix,
+                'parts_type'    => $parts_type,
+                'kitchen_loc'   => $kitchen_loc
             ];
         });
 
@@ -99,9 +105,9 @@ class PartLocationController extends Controller
 
         if (is_null($user)) {
             return response()->json([
-                'success' => false,
-                'status' => 401,
-                'message' => 'Unauthorized Access'
+                'success'   => false,
+                'status'    => 401,
+                'message'   => 'Unauthorized Access'
             ]);
         }
         
@@ -148,7 +154,11 @@ class PartLocationController extends Controller
                 // $pl = PartLocation::where('outlet_id', $request->outlet_id) 
                 //         ->where('product_id',$v->product_id)
                 //         ->first(); 
-                //var_dump($v);
+                //var_dump($v); 
+
+                $parts_type = SitePart::getPartsTypeById($v->product_id);
+                $kitchen_loc = SitePart::getKitchenLocationById($v->product_id);
+
                 return [
                     'parent_id'         => $v->parent_id,
                     'product_id'        => $v->product_id,
@@ -158,7 +168,9 @@ class PartLocationController extends Controller
                     'rp'                => $v->partLocation->retail, 
                     'type'              => $v->type, 
                     'modifiable'        => $v->modifiable,
-                    'product_category'  => $v->comp_cat_id
+                    'product_category'  => $v->comp_cat_id,
+                    'parts_type'        => $parts_type,
+                    'kitchen_loc'       => $kitchen_loc
                 ];
             }); 
         }
@@ -179,8 +191,10 @@ class PartLocationController extends Controller
                     ->where('category_id', $id)
                     ->get();
 
-        $list->transform(function ($value) { 
+        $list->transform(function ($value) {
             //$url = Storage::url($value->IMAGE);
+            $parts_type = SitePart::getPartsTypeById($value->product_id);
+            $kitchen_loc = SitePart::getKitchenLocationById($value->product_id);
             return [
                 'product_id'    => $value->product_id,
                 'outlet_id'     => $value->outlet_id, 
@@ -194,7 +208,9 @@ class PartLocationController extends Controller
                 ],  
                 'image'         => '', 
                 'is_food'       => $value->is_food,
-                'is_postmix'    => $value->postmix
+                'is_postmix'    => $value->postmix,
+                'parts_type'    => $parts_type,
+                'kitchen_loc'   => $kitchen_loc
             ];
         });
 
