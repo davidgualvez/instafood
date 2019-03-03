@@ -274,7 +274,7 @@ function showCart(){
             transition: 'fade up', 
             inverted: true,
             closable: true,
-            centered: true,
+            centered: false,
             allowMultiple: true,
             onHide: function () {
                 console.log('hidden');
@@ -309,7 +309,7 @@ function showCart(){
             transition: 'fade up',
             inverted: true,
             closable: true,
-            centered: true,
+            centered: false,
             onHide: function () {
                 console.log('hidden'); 
             },
