@@ -21,7 +21,7 @@ class Helper
         $result = $startOfTheDay->diffInSeconds($date);
         //$result = $startOfTheDay->diffInRealMilliseconds($date);
 
-        return $result * 100;
+        return ($result * 100);
     }
 
 }

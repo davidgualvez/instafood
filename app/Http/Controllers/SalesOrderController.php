@@ -132,19 +132,19 @@ class SalesOrderController extends Controller
                 $osd->save(); 
 
                 //save to kitchen
-                if( strtolower($item['item']['parts_type']) == 'y'){
-                    $this->saveToKitchen( 
-                            $blin->getNewIdForKitchenOrder(),
-                            $osh->orderslip_header_id,
-                            $osd->orderslip_detail_id,
-                            $item['item']['product_id'],
-                            $item['item']['product_id'],
-                            $item['item']['kitchen_loc'],
-                            $item['ordered_qty'],
-                            $now,
-                            $helper->getClarionDate($now),
-                            $helper->getClarionTime($now)); 
-                }
+                // if( strtolower($item['item']['parts_type']) == 'y'){
+                //     $this->saveToKitchen( 
+                //             $blin->getNewIdForKitchenOrder(),
+                //             $osh->orderslip_header_id,
+                //             $osd->orderslip_detail_id,
+                //             $item['item']['product_id'],
+                //             $item['item']['product_id'],
+                //             $item['item']['kitchen_loc'],
+                //             $item['ordered_qty'],
+                //             $now,
+                //             $helper->getClarionDate($now),
+                //             $helper->getClarionTime($now)); 
+                // }
 
                 if( isset($item['components']) ){
                     //reading components
@@ -177,19 +177,19 @@ class SalesOrderController extends Controller
                             $osd1->save();
 
                             //save to kitchen
-                            if(strtolower( $components['item']['parts_type']) == 'y'){
-                                $this->saveToKitchen(
-                                    $blin->getNewIdForKitchenOrder(),
-                                    $osh->orderslip_header_id,
-                                    $osd1->orderslip_detail_id,
-                                    $osd1->product_id,
-                                    $osd->product_id,
-                                    $components['item']['kitchen_loc'],
-                                    $osd1->qty,
-                                    $now,
-                                    $helper->getClarionDate($now),
-                                    $helper->getClarionTime($now)); 
-                            }
+                            // if(strtolower( $components['item']['parts_type']) == 'y'){
+                            //     $this->saveToKitchen(
+                            //         $blin->getNewIdForKitchenOrder(),
+                            //         $osh->orderslip_header_id,
+                            //         $osd1->orderslip_detail_id,
+                            //         $osd1->product_id,
+                            //         $osd->product_id,
+                            //         $components['item']['kitchen_loc'],
+                            //         $osd1->qty,
+                            //         $now,
+                            //         $helper->getClarionDate($now),
+                            //         $helper->getClarionTime($now)); 
+                            // }
                             
                         }
 
@@ -222,19 +222,19 @@ class SalesOrderController extends Controller
                                 $osd2->save();
 
                                 //save to kitchen
-                                if(strtolower( $sitems['parts_type']) == 'y'){
-                                    $this->saveToKitchen(
-                                        $blin->getNewIdForKitchenOrder(),
-                                        $osh->orderslip_header_id,
-                                        $osd2->orderslip_detail_id,
-                                        $osd2->product_id,
-                                        $osd->product_id,
-                                        $sitems['kitchen_loc'],
-                                        $osd2->qty,
-                                        $now,
-                                        $helper->getClarionDate($now),
-                                        $helper->getClarionTime($now)); 
-                                }
+                                // if(strtolower( $sitems['parts_type']) == 'y'){
+                                //     $this->saveToKitchen(
+                                //         $blin->getNewIdForKitchenOrder(),
+                                //         $osh->orderslip_header_id,
+                                //         $osd2->orderslip_detail_id,
+                                //         $osd2->product_id,
+                                //         $osd->product_id,
+                                //         $sitems['kitchen_loc'],
+                                //         $osd2->qty,
+                                //         $now,
+                                //         $helper->getClarionDate($now),
+                                //         $helper->getClarionTime($now)); 
+                                // }
                                     
                             }
                         }
@@ -244,25 +244,52 @@ class SalesOrderController extends Controller
 
                 //save other none modifiable components that can be save to the kitchen
                 $pm = Postmix::where('parent_id', $osd->product_id)
-                        ->where('MODIFIABLE',0 )
+                        ->where('MODIFIABLE', 0)
                         ->get();
 
                 foreach ($pm as $key => $value) {
                     # code...
-                    
-                    if( strtolower($value->sitePart->parts_type) == 'y'){
-                        $this->saveToKitchen(
-                            $blin->getNewIdForKitchenOrder(),
-                            $osh->orderslip_header_id,
-                            $osd->orderslip_detail_id,
-                            $osd->product_id,
-                            $value->product_id,
-                            $value->sitePart->kitchen_loc,
-                            ($osd->qty * $value->quantity),
-                            $now,
-                            $helper->getClarionDate($now),
-                            $helper->getClarionTime($now));
-                    }
+                    // dd($value);
+                    // $counter++;
+                    // $pm_qty = $value->quantity * $item['ordered_qty'];
+                    // $pm_amount = $pm_qty * $value->
+                    // $_osd = new OrderSlipDetail;
+                    // $_osd->orderslip_detail_id           = $blin->getNewIdForOrderSlipDetails();
+                    // $_osd->orderslip_header_id           = $osh->orderslip_header_id;
+                    // $_osd->branch_id                     = config('custom.branch_id');
+                    // $_osd->remarks                       = $item['instruction'];
+                    // $_osd->line_number                   = $counter;
+                    // $_osd->order_type                    = $order_type;
+                    // $_osd->product_id                    = $value->product_id;
+                    // $_osd->qty                           = $pm_qty;
+                    // $_osd->srp                           = $item['item']['srp'];
+                    // $_osd->amount                        = $item['item']['srp'];
+                    // $_osd->net_amount                    = $item['ordered_qty'] * $item['item']['srp'];
+                    // $_osd->status                        = 'P';
+                    // $_osd->postmix_id                    = $item['item']['product_id'];
+                    // $_osd->is_modify                     = null;
+                    // if($request->others['mobile_number'] != null){
+                    //     $_osd->customer_id                = $osh->customer_id;
+                    // }
+                    // $_osd->encoded_date                  = $now;
+                    // $_osd->save();
+
+
+
+                    // if( strtolower($value->sitePart->parts_type) == 'y'){
+                    //     $this->saveToKitchen(
+                    //         $blin->getNewIdForKitchenOrder(),
+                    //         $osh->orderslip_header_id,
+                    //         $osd->orderslip_detail_id,
+                    //         $osd->product_id,
+                    //         $value->product_id,
+                    //         $value->sitePart->kitchen_loc,
+                    //         ($osd->qty * $value->quantity),
+                    //         $now,
+                    //         $helper->getClarionDate($now),
+                    //         $helper->getClarionTime($now));
+                    // }
+
                 }
 
             }
