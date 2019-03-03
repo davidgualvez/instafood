@@ -874,6 +874,15 @@ function printOS(data, response_data){
 
             customer_information,
 
+            // {
+            //     columns: [
+            //         {
+            //             text: 'Type: ' + data.items.order_type
+            //         }
+            //     ],
+            //     style: 'cust_info_header'
+            // },
+
             items
         ],
         styles: {
