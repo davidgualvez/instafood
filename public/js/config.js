@@ -69,6 +69,7 @@ $(document).ready(function(){
 
 //global variable for all page  
 var api = '';
+var local_printer_api = "http://127.0.0.1:9000/api";
 var routes = {
     login:              '/login',
     product: {
@@ -147,6 +148,28 @@ function get(url, request, callback) {
         }
     });
 }
+
+function customPost(url, request, callback) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        data: request,
+        headers: {
+            //'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (data) {
+            callback(data);
+        },
+        error: function (data) {
+            console.log(data);
+            showError('Server error', 'Please ask the system administrator about this!', function () {
+
+            });
+        }
+    });
+}
+
 
 //
 // Authentication Handler
@@ -444,6 +467,10 @@ $('#mc-next1-btn-finish').on('click', function(){
         }
 
         printOS(data, response.data);
+        customPost(local_printer_api + '/print/sales-order',data, function(response){
+            console.log(response);
+        });
+
         var proceedToNextCart = $('.ui.modal.cart-modal-next1');
         proceedToNextCart.modal('hide');
         main_cart.clear();
@@ -665,6 +692,7 @@ function btnCustomerRegister(){
             showSuccess('', 'New Customer has been registered', function(){
                 
             }); 
+ 
             name.val('');
             bdate.val('');
             mnumber.val('');
