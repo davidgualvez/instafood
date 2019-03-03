@@ -250,7 +250,7 @@ class SalesOrderController extends Controller
                 foreach ($pm as $key => $value) {
                     # code...
                     
-                    if( $value->sitePart->parts_type == 'y'){
+                    if( strtolower($value->sitePart->parts_type) == 'y'){
                         $this->saveToKitchen(
                             $blin->getNewIdForKitchenOrder(),
                             $osh->orderslip_header_id,
