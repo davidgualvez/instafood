@@ -48,7 +48,7 @@ class PartLocationController extends Controller
         $search     = $request->search;
         $categories = $request->categories; 
         $limit      = 10; 
-          
+         
         if( $categories[0] == null || $categories[0] == ''){ 
             $pl = PartLocation::where('outlet_id', $duty->outlet)
                 ->where('description', 'LIKE', '%' . $search . '%')

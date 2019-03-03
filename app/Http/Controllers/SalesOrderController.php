@@ -250,29 +250,29 @@ class SalesOrderController extends Controller
                 foreach ($pm as $key => $value) {
                     # code...
                     // dd($value);
-                    // $counter++;
-                    // $pm_qty = $value->quantity * $item['ordered_qty'];
-                    // $pm_amount = $pm_qty * $value->
-                    // $_osd = new OrderSlipDetail;
-                    // $_osd->orderslip_detail_id           = $blin->getNewIdForOrderSlipDetails();
-                    // $_osd->orderslip_header_id           = $osh->orderslip_header_id;
-                    // $_osd->branch_id                     = config('custom.branch_id');
-                    // $_osd->remarks                       = $item['instruction'];
-                    // $_osd->line_number                   = $counter;
-                    // $_osd->order_type                    = $order_type;
-                    // $_osd->product_id                    = $value->product_id;
-                    // $_osd->qty                           = $pm_qty;
-                    // $_osd->srp                           = $item['item']['srp'];
-                    // $_osd->amount                        = $item['item']['srp'];
-                    // $_osd->net_amount                    = $item['ordered_qty'] * $item['item']['srp'];
-                    // $_osd->status                        = 'P';
-                    // $_osd->postmix_id                    = $item['item']['product_id'];
-                    // $_osd->is_modify                     = null;
-                    // if($request->others['mobile_number'] != null){
-                    //     $_osd->customer_id                = $osh->customer_id;
-                    // }
-                    // $_osd->encoded_date                  = $now;
-                    // $_osd->save();
+                    $counter++;
+                    $pm_qty = $value->quantity * $item['ordered_qty'];
+                    $pm_amount = $pm_qty * 0;
+                    $_osd = new OrderSlipDetail;
+                    $_osd->orderslip_detail_id           = $blin->getNewIdForOrderSlipDetails();
+                    $_osd->orderslip_header_id           = $osh->orderslip_header_id;
+                    $_osd->branch_id                     = config('custom.branch_id');
+                    $_osd->remarks                       = $item['instruction'];
+                    $_osd->line_number                   = $counter;
+                    $_osd->order_type                    = $order_type;
+                    $_osd->product_id                    = $value->product_id;
+                    $_osd->qty                           = $pm_qty;
+                    $_osd->srp                           = 0;
+                    $_osd->amount                        = $pm_amount;
+                    $_osd->net_amount                    = 0;
+                    $_osd->status                        = 'P';
+                    $_osd->postmix_id                    = $osd->product_id;
+                    $_osd->is_modify                     = null;
+                    if($request->others['mobile_number'] != null){
+                        $_osd->customer_id                = $osh->customer_id;
+                    }
+                    $_osd->encoded_date                  = $now;
+                    $_osd->save();
 
 
 
