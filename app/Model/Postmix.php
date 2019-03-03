@@ -45,4 +45,8 @@ class Postmix extends Model
         return $this->belongsTo('App\Model\PartLocation','PARTSID','PRODUCT_ID');
     }
 
+    public function sitePart(){ 
+       return $this->belongsTo('App\Model\SitePart', 'PARTSID');
+    }
+
 }

@@ -9,6 +9,7 @@ use App\Model\Customer;
 use App\Model\OrderSlipHeader;
 use App\Model\OrderSlipDetail;
 use App\Model\KitchenOrder;
+use App\Model\Postmix;
 use App\Services\BranchLastIssuedNumberServices;
 use App\Services\Helper;
 use Carbon\Carbon;
@@ -238,6 +239,29 @@ class SalesOrderController extends Controller
                             }
                         }
                         
+                    }
+                }
+
+                //save other none modifiable components that can be save to the kitchen
+                $pm = Postmix::where('parent_id', $osd->product_id)
+                        ->where('MODIFIABLE',0 )
+                        ->get();
+
+                foreach ($pm as $key => $value) {
+                    # code...
+                    
+                    if( $value->sitePart->parts_type == 'y'){
+                        $this->saveToKitchen(
+                            $blin->getNewIdForKitchenOrder(),
+                            $osh->orderslip_header_id,
+                            $osd->orderslip_detail_id,
+                            $osd->product_id,
+                            $value->product_id,
+                            $value->sitePart->kitchen_loc,
+                            ($osd->qty * $value->quantity),
+                            $now,
+                            $helper->getClarionDate($now),
+                            $helper->getClarionTime($now));
                     }
                 }
 
