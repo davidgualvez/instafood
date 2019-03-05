@@ -318,7 +318,7 @@ function btnAddToCart(){
             transition: 'fade up',
             inverted: true,
             closable : true, 
-            centered: false,
+            centered: true,
             onHide: function(){
                 console.log('hidden'); 
             },

@@ -31,7 +31,7 @@ $(document).ready(function(){
                 transition: 'fade up',
                 inverted: true,
                 closable : true, 
-                centered: false,
+                centered: true,
                 onHide: function(){
                     console.log('hidden');  
                 },
@@ -274,7 +274,7 @@ function showCart(){
             transition: 'fade up', 
             inverted: true,
             closable: true,
-            centered: false,
+            centered: true,
             allowMultiple: true,
             onHide: function () {
                 console.log('hidden');
@@ -309,7 +309,7 @@ function showCart(){
             transition: 'fade up',
             inverted: true,
             closable: true,
-            centered: false,
+            centered: true,
             onHide: function () {
                 console.log('hidden'); 
             },
