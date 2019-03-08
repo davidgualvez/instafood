@@ -31,7 +31,7 @@ $(document).ready(function(){
                 transition: 'fade up',
                 inverted: true,
                 closable : true, 
-                centered: true,
+                centered: false,
                 onHide: function(){
                     console.log('hidden');  
                 },
@@ -69,7 +69,7 @@ $(document).ready(function(){
 
 //global variable for all page  
 var api = '';
-var local_printer_api = "http://127.0.0.1:9000/api";
+var local_printer_api = "http://instafood-printer.dsc:8082/api";
 var routes = {
     login:              '/login',
     product: {
@@ -297,8 +297,8 @@ function showCart(){
             transition: 'fade up', 
             inverted: true,
             closable: true,
-            centered: true,
-            allowMultiple: true,
+            centered: false,
+            // allowMultiple: true,
             onHide: function () {
                 console.log('hidden');
                 updateCartCount();
@@ -332,7 +332,7 @@ function showCart(){
             transition: 'fade up',
             inverted: true,
             closable: true,
-            centered: true,
+            centered: false,
             onHide: function () {
                 console.log('hidden'); 
             },
@@ -467,7 +467,11 @@ $('#mc-next1-btn-finish').on('click', function(){
         }
 
         printOS(data, response.data);
-        customPost(local_printer_api + '/print/sales-order',data, function(response){
+        var final_data = {
+            os_number: response.data.orderslip_id,
+            data : data
+        };
+        customPost(local_printer_api + '/print/sales-order', final_data, function(response){
             console.log(response);
         });
 
