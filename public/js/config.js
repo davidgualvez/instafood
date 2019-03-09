@@ -298,7 +298,7 @@ function showCart(){
             inverted: true,
             closable: true,
             centered: false,
-            // allowMultiple: true,
+            allowMultiple: true,
             onHide: function () {
                 console.log('hidden');
                 updateCartCount();
@@ -327,35 +327,58 @@ function showCart(){
 // function showCartProceed(){
     $('#mc-btn-proceed').on('click', function(){
         console.log('test proceed...');
-        var proceedToNextCart = $('.ui.modal.cart-modal-next1');
-        proceedToNextCart.modal({
+
+       // $('.ui.modal.cart-modal').modal('hide');
+        $('.ui.modal.cart-modal-next1').modal({
             transition: 'fade up',
-            inverted: true,
+            // inverted: true,
             closable: true,
-            centered: false,
+            // centered: false, 
             onHide: function () {
-                console.log('hidden'); 
+                console.log('hidden');
+                updateCartCount();
             },
             onShow: function () {
                 console.log('shown');
             },
             onApprove: function () {
                 console.log('Approve');
+                updateCartCount(); 
             }
         }).modal('show');
 
+        // var proceedToNextCart = $('.ui.modal.cart-modal-next1');
+        // proceedToNextCart.modal({
+        //     transition: 'fade up',
+        //     inverted: true,
+        //     closable: true,
+        //     centered: false,
+        //     onHide: function () {
+        //         console.log('hidden'); 
+        //     },
+        //     onShow: function () {
+        //         console.log('shown');
+        //     },
+        //     onApprove: function () {
+        //         console.log('Approve');
+        //     }
+        // }).modal('show');
+
         updateCartNext1();
+        $('#mc-next1-txt-mnum').val('');
+        $('#mc-next1-customer-result').empty();
+        
     });
 // }
 
 function updateCartNext1(){
     var hc_regular  = $('#cart-modal-next1-hc-regular');
     // var hc_scpwd    = $('#cart-modal-next1-hc-cspwd');
-
+    console.log(main_cart_other.headcounts.regular);
     hc_regular.val( main_cart_other.headcounts.regular);
     // hc_scpwd.val( main_cart_other.headcounts.sc_pwd);
 
-    //console.log( hc_regular, hc_scpwd);
+    //console.log( hc_regular, hc_scpwd); 
 }
 
 function btnNext1HcRegularMinus(){

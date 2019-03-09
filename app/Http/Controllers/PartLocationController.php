@@ -47,28 +47,34 @@ class PartLocationController extends Controller
          */
         $search     = $request->search;
         $categories = $request->categories; 
-        $limit      = 10; 
+        $limit      = 10;
+        //dd($search, $categories);
+        $val = config('custom.group_not_to_display');
+        $val = explode(',',$val);         
          
         if( $categories[0] == null || $categories[0] == ''){ 
             $pl = PartLocation::where('outlet_id', $duty->outlet)
-                ->where('description', 'LIKE', '%' . $search . '%')
+                ->where( 'short_code', 'LIKE', '%'.$search.'%')
                 ->where('retail','>',0)
+                ->whereNotIn('group_id', $val)
                 ->orderBy('product_id', 'desc')
                 ->simplePaginate($limit);
-        }else{ 
+        }else{
             $pl = PartLocation::where('outlet_id', $duty->outlet)
-                ->where('description', 'LIKE', '%' . $search . '%')
+                ->where( 'short_code', 'LIKE', '%'.$search.'%')
                 ->whereIn('group_id', $categories)
                 ->where('retail','>',0)
+                ->whereNotIn('group_id', $val)
                 ->orderBy('product_id', 'desc')
                 ->simplePaginate($limit);
-        } 
+        }  
 
-        $pl->getCollection()->transform(function ($value) {
+        $pl->getCollection() 
+            ->transform(function ($value) { 
             //$url = Storage::url($value->IMAGE);
             $parts_type = SitePart::getPartsTypeById($value->product_id);
             $kitchen_loc = SitePart::getKitchenLocationById($value->product_id);
-
+            
             return [
                 'product_id'    => $value->product_id,
                 'outlet_id'     => $value->outlet_id, 
@@ -121,13 +127,18 @@ class PartLocationController extends Controller
          */
         $pl = PartLocation::with('group')
                 ->where('outlet_id', $outlet->outlet)->get();
-        
-        $groups = $pl->unique('group')->transform(function ($value) {
+
+        $val = config('custom.group_not_to_display');
+        $val = explode(',',$val);         
+
+        $groups = $pl->unique('group')
+            ->whereNotIn('group.group_id',$val)
+            ->transform(function ($value) {  
             return [
                 'group_id'      => $value->group_id,
                 'description'   => $value->group->description
-            ];
-        });
+            ];  
+        }); 
 
         /**
          * GET DISTINCT CATEGORY

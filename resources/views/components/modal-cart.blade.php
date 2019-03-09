@@ -3,11 +3,9 @@
   <div class="header">Cart</div>
   <div class="scrolling content">
 {{-- //== --}}
-<section class="ui basic vertical segment sticky cart" >   
+            <section class="ui basic vertical segment sticky cart" >   
                 {{-- <h2 class="ui header">Cart</h2>  --}}
-                <div class="ui divided animated list mc-list">  
-                     
-                     
+                <div class="ui divided animated list mc-list">   
                     <div class="item">
                         {{-- Remove Button --}}
                         <div class="right floated content">

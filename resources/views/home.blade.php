@@ -196,6 +196,11 @@
     @include('components.modal-cart-next1')
     {{-- END OF CART NEXT MODAL --}}
 
+    {{-- CART NEXT MODAL --}}
+    @include('components.modal-cart-next2')
+    {{-- END OF CART NEXT MODAL --}}
+
+
 
 	<!-- JS -->
 	<script src="/js/app.js"></script>
