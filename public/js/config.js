@@ -489,9 +489,11 @@ $('#mc-next1-btn-finish').on('click', function(){
             return;
         }
 
-        printOS(data, response.data);
+        //printOS(data, response.data);
         var final_data = {
             os_number: response.data.orderslip_id,
+            server_name: getStorage('name'),
+            created_at: response.data.created_at,
             data : data
         };
         customPost(local_printer_api + '/print/sales-order', final_data, function(response){

@@ -303,7 +303,8 @@ class SalesOrderController extends Controller
                 'status'    => 200,
                 'message'   => 'Success',
                 'data'      => [
-                    'orderslip_id'  => $osh->orderslip_header_id
+                    'orderslip_id'  => $osh->orderslip_header_id,
+                    'created_at'    => $now->toDateTimeString()
                 ]
             ]);
 
