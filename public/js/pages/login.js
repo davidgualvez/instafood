@@ -1,7 +1,7 @@
 $(document).ready(function () {
     console.log('loaded...');
     if(isLogin()){
-        redirectTo('/');
+        redirectTo('/groups');
         return;
     }
 });
@@ -57,7 +57,7 @@ function login(username, password){
         setStorage('outlet_name', response.data.outlet.name);
         
         showSuccess('', 'Login Success', function () {
-            redirectTo('/');
+            redirectTo('/groups');
         }); 
 
     });

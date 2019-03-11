@@ -75,6 +75,7 @@ var routes = {
     product: {
         list :          '/products',
         groups :        '/products/group',
+        category:       '/products/group/category' // + id
     },
     customer : {
         create :        '/costumer'

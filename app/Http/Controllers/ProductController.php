@@ -8,6 +8,5 @@ use Carbon\Carbon;
 
 class ProductController extends Controller
 {
-    //
-    
+    // 
 }
