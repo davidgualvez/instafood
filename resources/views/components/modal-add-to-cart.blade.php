@@ -117,8 +117,7 @@
           <div class="content" style="padding-bottom: 10px;">
               <div class="ui form transition hidden"> 
                   <div class="field"> 
-                      <textarea id="add-to-cart-modal-instruction" rows="2" placeholder="e.g. no onions, no mayo 
-Write comments in case you are allergic to ingredients or want to exclude some."></textarea>
+                      <textarea id="add-to-cart-modal-instruction" rows="2" placeholder=""></textarea>
                   </div>
               </div>
           </div> 

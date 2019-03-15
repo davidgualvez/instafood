@@ -125,7 +125,6 @@ function dataDisplayerProduct(data, from) {
 
     if(from == 1){
         product_lists   = new Map();
-        console.log('weakmap');
     }
 
     current_data_product = data;
@@ -290,14 +289,13 @@ $('#search_our_products').on('change', function () {
     console.log('change...');
 }); 
 
-
-
 function btnAddToCart(){
     $('.product').on('click', function(){
         console.log('product clicked.');
         // getting item from the selected
         let id = $(this).data('id');
         let item = product_lists.get(id);
+        
         setSelectedItem(item);
 
         var addToCartModal = $('.ui.modal.transition.add-to-cart-modal.longer');

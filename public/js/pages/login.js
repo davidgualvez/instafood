@@ -55,6 +55,7 @@ function login(username, password){
         setStorage('name', response.name);
         setStorage('outlet_id', response.data.outlet.id);
         setStorage('outlet_name', response.data.outlet.name);
+        setStorage('order_slip',null);
         
         showSuccess('', 'Login Success', function () {
             redirectTo('/groups');

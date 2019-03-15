@@ -55,6 +55,7 @@
     <script src="/js/plugins/moment.js"></script>
     <script src="/js/plugins/pdfmake.min.js"></script>
     <script src="/js/plugins/vfs_fonts.js"></script>
+    <script src="/js/orderslip.js"></script>
     <script src="/js/config.js"></script>
     <!-- CUSTOM JS -->
     @yield('custom_js')

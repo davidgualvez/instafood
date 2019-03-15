@@ -233,4 +233,72 @@ class PartLocationController extends Controller
         ]); 
     }
 
+    public function items(Request $request){
+
+        $now = Carbon::now();
+        
+        $user = User::where('token', $request->header('token'))
+            ->first(); 
+
+        if( is_null($user) ){ 
+            return response()->json([
+                'success' => false,
+                'status' => 401,
+                'message' => 'Unauthorized Access'
+            ]);
+        }
+            
+        $userServices = new UserServices($user);
+        $helper = new Helper; 
+ 
+        $duty = $userServices->isOnDuty($helper->getClarionDate($now));
+
+        if($duty == false){
+            return response()->json([
+                'success'   => false,
+                'status'    => 401,
+                'message'   => 'Unauthorized Access'
+            ]);
+        }
+        
+        $result = PartLocation::where('outlet_id', $duty->outlet)
+            ->where('group_id', $request->group_id)
+            ->where('category_id', $request->category_id)
+            ->simplePaginate(15);
+
+        $result->getCollection() 
+            ->transform(function ($value) { 
+            //$url = Storage::url($value->IMAGE);
+            $parts_type = SitePart::getPartsTypeById($value->product_id);
+            $kitchen_loc = SitePart::getKitchenLocationById($value->product_id);
+            
+            return [
+                'product_id'    => $value->product_id,
+                'outlet_id'     => $value->outlet_id, 
+                // 'description'   => $value->description,
+                'description'   => $value->short_code,
+                'srp'           => $value->retail,
+                'category_id'   => $value->category,
+                'group'         => [
+                    'group_code'    => $value->group->group_id,
+                    'description'   => $value->group->description
+                ],  
+                'image'         => '', 
+                'is_food'       => $value->is_food,
+                'is_postmix'    => $value->postmix,
+                'parts_type'    => $parts_type,
+                'kitchen_loc'   => $kitchen_loc
+            ];
+        });
+
+        return response()->json([
+            'success'   => true,
+            'status'    => 200,
+            'result'    => [
+                'data'  => $result
+            ]
+        ]);
+
+    }
+
 }

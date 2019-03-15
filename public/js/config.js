@@ -75,7 +75,7 @@ var routes = {
     product: {
         list :          '/products',
         groups :        '/products/group',
-        category:       '/products/group/category' // + id
+        category :      '/products/group/category' // + id
     },
     customer : {
         create :        '/costumer'
@@ -276,6 +276,12 @@ function validateContactNumber(value) {
     return true;
 }
 
+function cl(arr = arr() ){
+    arr.forEach(element => {
+        console.log(element);
+    });
+}
+
 function btnLogin(){
     $('#btn-login').on('click',function(){
         window.location.href = '/login';
@@ -292,36 +298,45 @@ function btnLogout() {
 //global app functionalities
 function showCart(){
     $('#btn-carts-qty').on('click', function(){
-        console.log('showing carts...');
-        var cart = $('.ui.modal.cart-modal');
-        cart.modal({
-            transition: 'fade up', 
-            inverted: true,
-            closable: true,
-            centered: false,
-            allowMultiple: true,
-            onHide: function () {
-                console.log('hidden');
-                updateCartCount();
-            },
-            onShow: function () {
-                console.log('shown');
-            },
-            onApprove: function () {
-                console.log('Approve');
-                updateCartCount();
-                // return validateModal()
-            }
-        }).modal('show');
-        updateCart(); 
-        main_cart_other = {
-            headcounts: {
-                regular: 1,
-                sc_pwd: 0,
-            },
-            customer_name : null,
-            mobile_number: null
-        };
+        
+        if( getStorage('order_slip') == 'null'){
+            showWarning('','No item to be display.', function(){
+
+            });
+            return;
+        }
+
+
+
+        // var cart = $('.ui.modal.cart-modal');
+        // cart.modal({
+        //     transition: 'fade up', 
+        //     inverted: true,
+        //     closable: true,
+        //     centered: false,
+        //     allowMultiple: true,
+        //     onHide: function () {
+        //         console.log('hidden');
+        //         updateCartCount();
+        //     },
+        //     onShow: function () {
+        //         console.log('shown');
+        //     },
+        //     onApprove: function () {
+        //         console.log('Approve');
+        //         updateCartCount();
+        //         // return validateModal()
+        //     }
+        // }).modal('show');
+        // updateCart(); 
+        // main_cart_other = {
+        //     headcounts: {
+        //         regular: 1,
+        //         sc_pwd: 0,
+        //     },
+        //     customer_name : null,
+        //     mobile_number: null
+        // };
     }); 
 }
 

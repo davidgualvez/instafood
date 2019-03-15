@@ -59,4 +59,13 @@ class PartLocation extends Model
             ->where('MODIFIABLE',0);
      }
 
+     /**
+      * LOGIC
+      */
+    public static function getByOutletAndGroupAndCategory($outlet_id, $gid, $cid, $limit = 15){
+        return static::where('outlet_id', $outlet_id)
+                ->where('group_id', $gid)
+                ->where('category_id', $cid)
+                ->simplePaginate($limit);
+    }
 }

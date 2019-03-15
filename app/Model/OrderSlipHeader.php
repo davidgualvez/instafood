@@ -23,7 +23,7 @@ class OrderSlipHeader extends Model
 		'total_amount'			=> 'TOTALAMOUNT',
 		'discount_amount'		=> 'DISCOUNT',
 		'net_amount' 			=> 'NETAMOUNT',
-		'status' 				=> 'STATUS',
+		'status' 				=> 'STATUS',    // [ 'P' => 'Pending', 'C' => 'Completed'. 'CS' => 'CurrentSelected' ]
 		'customer_id' 			=> 'CUSTOMERCODE',
 		'mobile_number' 		=> 'CELLULARNUMBER',
 		'customer_name' 		=> 'CUSTOMERNAME',
