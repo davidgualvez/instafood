@@ -326,11 +326,36 @@ function btnSpcPlus(id) {
 }
 
 $('#add-to-cart-modal-btn').on('click', function(){
-    console.log('...', selected_product);
-    //redirectTo('');
+    console.log('...', selected_product); 
+
+    if( getOrderSlip() == false){
+
+        // ** (php)create orderslip header
+        postWithHeader('/order-slip/empty', {}, function(response) {
+        //  ** (php)return orderslip header id 
+            var os_id       = response.result.order_slip_no;
+        //      ** (js)create a order_slip object and link the returned order slip header id
+                var os_object = setOrderSlip(); 
+                os_object.order_slip_id = os_id; 
+                setOrderSlip(os_object);  
+
+            //      ** (js)add the item linked to that order slip header id
+                    var new_format = selectedItemFormatter(selected_product);
+                    os_object.items.push(new_format);
+                    
+                    // postWithHeader('/order-slip/add-new-item', {
+                    //     order_slip_no   : os_id,
+                    //     item            : JSON.stringify(selected_product)
+                    // }, function(response){
+                    //     cl([response]);
+                    // });
+        });
+    }
+
     // showSuccess(selected_product.item.description, ' has been added.' , function(){
     //     redirectTo('');
     // });
+
     // $.confirm({
     //     title: 'Confirm!',
     //     content: 'Simple confirm!',
@@ -340,5 +365,6 @@ $('#add-to-cart-modal-btn').on('click', function(){
     //     cancel: function () {
     //         $.alert('Canceled!')
     //     }
-    // });
+    // }); 
+
 });

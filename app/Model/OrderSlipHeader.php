@@ -11,7 +11,7 @@ class OrderSlipHeader extends Model
 {
     use Eloquence, Mappable, Mutable;
     //
-    protected $table 		= 'OrderSlipHeader';
+    protected $table 		= 'OrderSlipHeader'; 
     public $timestamps 		= false;
  
     //model mapping

@@ -76,6 +76,7 @@ class SalesOrderController extends Controller
             $osh->discount_amount           = 0;
             $osh->net_amount                = 0;
             $osh->status                    = 'P'; //Pending
+            
             // get the customer info if not null
             if($request->others['mobile_number'] != null){
                 $customer = new Customer;
@@ -246,7 +247,7 @@ class SalesOrderController extends Controller
                 $pm = Postmix::where('parent_id', $osd->product_id)
                         ->where('MODIFIABLE', 0)
                         ->get();
-
+                
                 foreach ($pm as $key => $value) {
                     # code...
                     // dd($value);
