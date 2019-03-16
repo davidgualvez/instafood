@@ -342,7 +342,9 @@ $('#add-to-cart-modal-btn').on('click', function(){
             //      ** (js)add the item linked to that order slip header id
                     var new_format = selectedItemFormatter(selected_product);
                     os_object.items.push(new_format);
-                    
+                    updateOrderSlip(os_object);
+                    cl([os_object]);
+
                     // postWithHeader('/order-slip/add-new-item', {
                     //     order_slip_no   : os_id,
                     //     item            : JSON.stringify(selected_product)
