@@ -35,6 +35,6 @@ class OrderSlipDetail extends Model
         'old_comp_id'           => 'OLD_COMP_ID',
 		'or_number' 			=> 'ORNO',
 		'customer_id'			=> 'CUSTOMERCODE',
-        'encoded_date'          => 'ENCODEDDATE',
+		'encoded_date'          => 'ENCODEDDATE', 
     ];
 }

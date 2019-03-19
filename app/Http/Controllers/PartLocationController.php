@@ -181,6 +181,7 @@ class PartLocationController extends Controller
                     'type'              => $v->type, 
                     'modifiable'        => $v->modifiable,
                     'product_category'  => $v->comp_cat_id,
+                    'part_no'           => $v->partno,
                     'parts_type'        => $parts_type,
                     'kitchen_loc'       => $kitchen_loc
                 ];
@@ -222,7 +223,8 @@ class PartLocationController extends Controller
                 'is_food'       => $value->is_food,
                 'is_postmix'    => $value->postmix,
                 'parts_type'    => $parts_type,
-                'kitchen_loc'   => $kitchen_loc
+                'kitchen_loc'   => $kitchen_loc,
+                'part_no'       => $value->part_no
             ];
         });
 
@@ -284,11 +286,12 @@ class PartLocationController extends Controller
                     'group_code'    => $value->group->group_id,
                     'description'   => $value->group->description
                 ],  
-                'image'         => '', 
+                'image'         => '',
                 'is_food'       => $value->is_food,
                 'is_postmix'    => $value->postmix,
                 'parts_type'    => $parts_type,
-                'kitchen_loc'   => $kitchen_loc
+                'kitchen_loc'   => $kitchen_loc,
+                'part_no'       => $value->part_no
             ];
         });
 

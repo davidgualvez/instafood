@@ -197,7 +197,8 @@ function getComponents(outlet_id = null,product_id = null){
                             rp              : parseFloat(v.rp),
                             quantity        : parseInt(v.quantity),
                             parts_type      : v.parts_type,
-                            kitchen_loc     : v.kitchen_loc
+                            kitchen_loc     : v.kitchen_loc,
+                            part_no         : v.part_no
                         },
                         qty: selected_product.ordered_qty,
                         selectable_items: []
@@ -242,7 +243,8 @@ function getComponents(outlet_id = null,product_id = null){
                                 price           : rp,
                                 qty             : 0,
                                 parts_type      : vv.parts_type,
-                                kitchen_loc     : vv.kitchen_loc
+                                kitchen_loc     : vv.kitchen_loc,
+                                part_no         : vv.part_no
                             });
 
                             selectable_container.append(

@@ -32,7 +32,7 @@ class Postmix extends Model
 
         'modifiable'        => 'MODIFIABLE',
         'is_free'           => 'ISFREE',
-        'comp_cat_id'       => 'COMPCATID'
+        'comp_cat_id'       => 'COMPCATID',
     ];
     protected $getterMutators = [
     	'description'		=> 'trim'

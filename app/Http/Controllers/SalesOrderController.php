@@ -172,6 +172,7 @@ class SalesOrderController extends Controller
                             $osd1->is_modify                     = 1;
                             $osd1->or_number                     = $base_line_number;
                             $osd1->old_comp_id                   = $components['item']['product_id'];
+                            $osd1->part_number                   = $components['item']['part_no'];
                             if($request->others['mobile_number'] != null){
                                 $osd1->customer_id               = $osh->customer_id;
                             }
@@ -217,7 +218,7 @@ class SalesOrderController extends Controller
                                 $osd2->is_modify                     = 1;
                                 $osd2->or_number                     = $base_line_number;
                                 $osd2->old_comp_id                   = $components['item']['product_id'];
-                                //$osd2->part_number                   = $components['item']['part_no'];
+                                $osd2->part_number                   = $sitems['part_no'];
                                 if($request->others['mobile_number'] != null){
                                     $osd2->customer_id               = $osh->customer_id;
                                 }
@@ -272,7 +273,7 @@ class SalesOrderController extends Controller
                     $_osd->postmix_id                    = $osd->product_id;
                     $_osd->part_number                   = $value->partno;
                     $_osd->is_modify                     = null;
-                    
+
                     if($request->others['mobile_number'] != null){
                         $_osd->customer_id                = $osh->customer_id;
                     }
