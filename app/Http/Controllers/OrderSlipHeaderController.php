@@ -24,7 +24,7 @@ class OrderSlipHeaderController extends Controller
  
             $helper = new Helper;
             $now    = Carbon::now();
-
+            
             $user = User::where('token', $request->header('token'))
                 ->first();
 

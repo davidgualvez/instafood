@@ -47,6 +47,7 @@ class UserServices {
 
         return $newToken;
     } 
+    
     public function isOnDuty($clarionDate){
         
         $result = $this->model->duties; 
@@ -63,7 +64,5 @@ class UserServices {
 
         return false;
     }
-
-
 
 }

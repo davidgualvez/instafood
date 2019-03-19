@@ -32,7 +32,9 @@ class PartLocation extends Model
         'ssbuffer'          => 'SSBUFFER',
         'is_food'           => 'MSGROUP',
         'qty'               => 'QUANTITY',
-        'kitchen_location'  => 'PRODGRP'
+        'kitchen_location'  => 'PRODGRP',
+        'part_no'           => 'PARTNO',
+
     ];
 
     protected $getterMutators = [

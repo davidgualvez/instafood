@@ -90,7 +90,8 @@ class PartLocationController extends Controller
                 'is_food'       => $value->is_food,
                 'is_postmix'    => $value->postmix,
                 'parts_type'    => $parts_type,
-                'kitchen_loc'   => $kitchen_loc
+                'kitchen_loc'   => $kitchen_loc,
+                'part_no'       => $value->part_no
             ];
         });
 
